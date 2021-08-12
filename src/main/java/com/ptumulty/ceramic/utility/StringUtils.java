@@ -1,6 +1,4 @@
-package com.pt.mug.Utility;
-
-import javafx.scene.Parent;
+package com.ptumulty.ceramic.utility;
 
 public class StringUtils
 {

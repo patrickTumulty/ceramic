@@ -1,6 +1,6 @@
-package com.pt.mug.Components;
+package com.ptumulty.ceramic.components;
 
-import com.pt.mug.Models.ChoiceModel;
+import com.ptumulty.ceramic.models.ChoiceModel;
 import javafx.scene.control.ChoiceBox;
 
 public class ChoiceComponent<T> extends UIComponent<ChoiceModel<T>, ChoiceBox<T>>

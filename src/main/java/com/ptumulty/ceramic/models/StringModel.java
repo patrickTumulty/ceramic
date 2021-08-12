@@ -1,5 +1,4 @@
-package com.pt.mug.Models;
-
+package com.ptumulty.ceramic.models;
 
 public class StringModel extends ValueModel<String>
 {

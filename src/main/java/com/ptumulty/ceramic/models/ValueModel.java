@@ -1,4 +1,4 @@
-package com.pt.mug.Models;
+package com.ptumulty.ceramic.models;
 
 import java.util.ArrayList;
 import java.util.List;

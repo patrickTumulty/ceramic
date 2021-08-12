@@ -1,25 +1,25 @@
-package com.pt.mug.Components;
+package com.ptumulty.ceramic.components;
 
-import com.pt.mug.Models.StringModel;
-import javafx.scene.control.TextField;
+import com.ptumulty.ceramic.models.StringModel;
+import javafx.scene.control.TextArea;
 
-public class StringComponent extends UIComponent<StringModel, TextField>
+public class TextComponent extends UIComponent<StringModel, TextArea>
 {
-    public StringComponent()
+    public TextComponent()
     {
         this(null);
     }
 
-    public StringComponent(StringModel model)
+    public TextComponent(StringModel model)
     {
         super(model);
-        renderer = new TextField("");
+        renderer = new TextArea();
     }
 
     @Override
     protected void updateModel()
     {
-        renderer.setOnAction(event ->
+        renderer.setOnKeyTyped(event ->
         {
             model.setValue(renderer.getText());
         });
@@ -29,6 +29,7 @@ public class StringComponent extends UIComponent<StringModel, TextField>
     public void attachModel(StringModel model)
     {
         super.attachModel(model);
+
         renderer.setText(this.model.getValue());
     }
 

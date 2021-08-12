@@ -1,4 +1,4 @@
-package com.pt.mug.Models;
+package com.ptumulty.ceramic.models;
 
 import javafx.scene.paint.Color;
 

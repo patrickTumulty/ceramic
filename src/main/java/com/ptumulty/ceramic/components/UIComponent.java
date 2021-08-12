@@ -1,8 +1,7 @@
-package com.pt.mug.Components;
+package com.ptumulty.ceramic.components;
 
 import com.pt.mug.Utility.Disposable;
-import com.pt.mug.Models.ValueModel;
-import javafx.scene.Parent;
+import com.ptumulty.ceramic.models.ValueModel;
 import javafx.scene.control.Control;
 
 public abstract class UIComponent<T extends ValueModel, V extends Control> implements Disposable, ValueModel.ValueListener

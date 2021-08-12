@@ -1,6 +1,6 @@
-package com.pt.mug.Components;
+package com.ptumulty.ceramic.components;
 
-import com.pt.mug.Models.StringModel;
+import com.ptumulty.ceramic.models.StringModel;
 import javafx.scene.control.Label;
 
 

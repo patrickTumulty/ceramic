@@ -1,4 +1,4 @@
-package com.ptumulty;
+package com.ptumulty.ceramic;
 
 import javafx.event.EventHandler;
 import javafx.geometry.Bounds;

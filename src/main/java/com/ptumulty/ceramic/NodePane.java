@@ -1,11 +1,7 @@
-package com.ptumulty;
+package com.ptumulty.ceramic;
 
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A JavaFX pane for displaying movable, resizable nodes.

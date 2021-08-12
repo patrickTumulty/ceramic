@@ -1,4 +1,4 @@
-package com.pt.mug.Utility;
+package com.ptumulty.ceramic.utility;
 
 /**
  * An interface that flags a class as disposable

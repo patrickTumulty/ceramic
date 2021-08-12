@@ -1,8 +1,6 @@
-package com.pt.mug.Components;
+package com.ptumulty.ceramic.components;
 
-import com.pt.mug.Models.BooleanModel;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import com.ptumulty.ceramic.models.BooleanModel;
 import javafx.scene.control.CheckBox;
 
 public class BooleanComponent extends UIComponent<BooleanModel, CheckBox>
