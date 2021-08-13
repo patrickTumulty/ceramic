@@ -21,13 +21,6 @@ public class BooleanComponent extends UIComponent<BooleanModel, CheckBox>
     }
 
     @Override
-    public void attachModel(BooleanModel model)
-    {
-        super.attachModel(model);
-        renderer.setSelected(this.model.getValue());
-    }
-
-    @Override
     public void valueChanged()
     {
         renderer.selectedProperty().setValue(model.getValue());

@@ -30,7 +30,10 @@ public abstract class UIComponent<T extends ValueModel, V extends Control> imple
             this.model = model;
             this.model.addListener(this);
         }
-        updateModel();
+        if (renderer != null)
+        {
+            updateModel();
+        }
     }
 
     public void detachModel()
