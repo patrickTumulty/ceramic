@@ -9,7 +9,7 @@ public class ListModel<T> extends ValueModel<List<T>>
 
     public ListModel()
     {
-        super(new ArrayList<>());
+        this(new ArrayList<>());
         listeners = new ArrayList<>();
     }
 
