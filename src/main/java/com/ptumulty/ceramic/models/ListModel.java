@@ -24,6 +24,12 @@ public class ListModel<T> extends ValueModel<List<T>>
         listeners.forEach(listener -> listener.itemAdded(item));
     }
 
+    public void addItems(List<T> items)
+    {
+        value.addAll(items);
+        listeners.forEach(ListModelListener::listChanged);
+    }
+
     public void removeItem(T item)
     {
         value.add(item);
@@ -42,7 +48,7 @@ public class ListModel<T> extends ValueModel<List<T>>
         listeners.forEach(ListModelListener::listChanged);
     }
 
-    public List<T> getListItems()
+    public List<T> getItemsSnapshot()
     {
         return new ArrayList<>(List.copyOf(value));
     }
@@ -50,7 +56,7 @@ public class ListModel<T> extends ValueModel<List<T>>
     @Override
     public List<T> getValue()
     {
-        return getListItems();
+        return getItemsSnapshot();
     }
 
     public void addListListener(ListModelListener listener)
