@@ -30,15 +30,15 @@ public class TextComponent extends UIComponent<StringModel, TextArea>
     {
         super.attachModel(model);
 
-        renderer.setText(this.model.getValue());
+        renderer.setText(this.model.get());
     }
 
     @Override
     public void valueChanged()
     {
-        if (!renderer.getText().equals(this.model.getValue()))
+        if (!renderer.getText().equals(this.model.get()))
         {
-            renderer.setText(this.model.getValue());
+            renderer.setText(this.model.get());
         }
     }
 }

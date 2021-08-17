@@ -34,7 +34,7 @@ public class LabelComponent extends UIComponent<StringModel, Label>
 
     public String getDisplayedText()
     {
-        return prefix + model.getValue() + suffix;
+        return prefix + model.get() + suffix;
     }
 
 

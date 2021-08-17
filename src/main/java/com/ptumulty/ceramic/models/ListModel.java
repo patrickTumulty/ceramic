@@ -54,7 +54,7 @@ public class ListModel<T> extends ValueModel<List<T>>
     }
 
     @Override
-    public List<T> getValue()
+    public List<T> get()
     {
         return getItemsSnapshot();
     }

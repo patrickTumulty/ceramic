@@ -23,6 +23,6 @@ public class BooleanComponent extends UIComponent<BooleanModel, CheckBox>
     @Override
     public void valueChanged()
     {
-        renderer.selectedProperty().setValue(model.getValue());
+        renderer.selectedProperty().setValue(model.get());
     }
 }

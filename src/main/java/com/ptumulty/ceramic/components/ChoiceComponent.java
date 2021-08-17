@@ -28,7 +28,7 @@ public class ChoiceComponent<T> extends UIComponent<ChoiceModel<T>, ChoiceBox<T>
         });
 
         renderer.getItems().addAll(model.getChoiceItems());
-        renderer.setValue(model.getValue());
+        renderer.setValue(model.get());
         renderer.setOnAction(event -> updateModel());
     }
 
@@ -44,6 +44,6 @@ public class ChoiceComponent<T> extends UIComponent<ChoiceModel<T>, ChoiceBox<T>
     @Override
     public void valueChanged()
     {
-        renderer.setValue(model.getValue());
+        renderer.setValue(model.get());
     }
 }

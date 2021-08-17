@@ -29,15 +29,15 @@ public class StringComponent extends UIComponent<StringModel, TextField>
     public void attachModel(StringModel model)
     {
         super.attachModel(model);
-        renderer.setText(this.model.getValue());
+        renderer.setText(this.model.get());
     }
 
     @Override
     public void valueChanged()
     {
-        if (!renderer.getText().equals(this.model.getValue()))
+        if (!renderer.getText().equals(this.model.get()))
         {
-            renderer.setText(this.model.getValue());
+            renderer.setText(this.model.get());
         }
     }
 }
