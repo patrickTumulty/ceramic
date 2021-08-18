@@ -5,7 +5,7 @@ import java.util.List;
 
 public class ListModel<T> extends ValueModel<List<T>>
 {
-    private List<ListModelListener> listeners;
+    private List<ListModelListener<T>> listeners;
 
     public ListModel()
     {
@@ -59,21 +59,21 @@ public class ListModel<T> extends ValueModel<List<T>>
         return getItemsSnapshot();
     }
 
-    public void addListListener(ListModelListener listener)
+    public void addListener(ListModelListener<T> listener)
     {
         listeners.add(listener);
     }
 
-    public void removeListListener(ListModelListener listener)
+    public void removeListener(ListModelListener<T> listener)
     {
         listeners.remove(listener);
     }
 
-    public interface ListModelListener
+    public interface ListModelListener<T>
     {
-        void itemAdded(Object item);
+        void itemAdded(T item);
 
-        void itemRemoved(Object item);
+        void itemRemoved(T item);
 
         void listChanged();
     }
