@@ -92,6 +92,14 @@ public class CancelableActionPopupWindow
         configureStageAndShow();
     }
 
+    public void show(int width, int height)
+    {
+        scene = new Scene(contentContainer, width, height);
+        stylesheet.ifPresent(s -> scene.getStylesheets().add(s));
+
+        configureStageAndShow();
+    }
+
     private void configureStageAndShow()
     {
         stage = new Stage();
@@ -100,13 +108,5 @@ public class CancelableActionPopupWindow
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
-    }
-
-    public void show(int width, int height)
-    {
-        scene = new Scene(contentContainer, width, height);
-        stylesheet.ifPresent(s -> scene.getStylesheets().add(s));
-
-        configureStageAndShow();
     }
 }
