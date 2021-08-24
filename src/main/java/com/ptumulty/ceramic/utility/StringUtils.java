@@ -16,4 +16,16 @@ public class StringUtils
     {
         return Arrays.stream(s.split("\n")).map(String::strip).collect(Collectors.toList());
     }
+
+    public static void removeBlankStringsFromList(List<String> stringList)
+    {
+        for (int i = 0; i < stringList.size(); i++)
+        {
+            if (stringList.get(i).isBlank())
+            {
+                stringList.remove(stringList.get(i));
+                i--;
+            }
+        }
+    }
 }
