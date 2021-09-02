@@ -8,16 +8,20 @@ public class BooleanComponent extends UIComponent<BooleanModel, CheckBox>
     public BooleanComponent(BooleanModel model)
     {
         super(model);
-        renderer = new CheckBox();
     }
 
     @Override
     protected void updateModel()
     {
-        renderer.selectedProperty().addListener((observable, oldValue, newValue) ->
-        {
-            model.setValue(newValue);
-        });
+        model.setValue(renderer.selectedProperty().getValue());
+    }
+
+    @Override
+    protected void initializeRenderer()
+    {
+        renderer = new CheckBox();
+        renderer.selectedProperty().addListener(
+                (observable, oldValue, newValue) -> model.setValue(newValue));
     }
 
     @Override

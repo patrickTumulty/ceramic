@@ -9,10 +9,10 @@ public class ChoiceComponent<T> extends UIComponent<ChoiceModel<T>, ChoiceBox<T>
     {
         this(null);
     }
+
     public ChoiceComponent(ChoiceModel<T> model)
     {
         super(model);
-        renderer = new ChoiceBox<>();
     }
 
     @Override
@@ -39,6 +39,12 @@ public class ChoiceComponent<T> extends UIComponent<ChoiceModel<T>, ChoiceBox<T>
     protected void updateModel()
     {
         model.setValue(renderer.getValue());
+    }
+
+    @Override
+    protected void initializeRenderer()
+    {
+        renderer = new ChoiceBox<>();
     }
 
     @Override

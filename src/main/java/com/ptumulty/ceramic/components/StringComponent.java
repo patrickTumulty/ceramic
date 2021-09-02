@@ -13,16 +13,19 @@ public class StringComponent extends UIComponent<StringModel, TextField>
     public StringComponent(StringModel model)
     {
         super(model);
-        renderer = new TextField("");
     }
 
     @Override
     protected void updateModel()
     {
-        renderer.setOnAction(event ->
-        {
-            model.setValue(renderer.getText());
-        });
+        model.setValue(renderer.getText());
+    }
+
+    @Override
+    protected void initializeRenderer()
+    {
+        renderer = new TextField();
+        renderer.setOnAction(event -> updateModel());
     }
 
     @Override

@@ -17,7 +17,6 @@ public class LabelComponent extends UIComponent<StringModel, Label>
     public LabelComponent(StringModel model)
     {
         super(model);
-        renderer = new Label();
         prefix = "";
         suffix = "";
     }
@@ -37,13 +36,18 @@ public class LabelComponent extends UIComponent<StringModel, Label>
         return prefix + model.get() + suffix;
     }
 
-
     @Override
     protected void updateModel()
     {
         /*
          * Do Nothing
          */
+    }
+
+    @Override
+    protected void initializeRenderer()
+    {
+        renderer = new Label();
     }
 
     @Override

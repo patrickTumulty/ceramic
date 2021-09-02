@@ -64,6 +64,10 @@ public abstract class ValueModel<T>
         listeners.forEach(ValueListener::valueChanged);
     }
 
+    /**
+     * Simple listener for listening to value changes. Only fires when the new value is different from the
+     * current value.
+     */
     public interface ValueListener
     {
         /**
