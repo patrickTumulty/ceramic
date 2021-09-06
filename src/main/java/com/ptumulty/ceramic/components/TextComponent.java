@@ -13,16 +13,19 @@ public class TextComponent extends UIComponent<StringModel, TextArea>
     public TextComponent(StringModel model)
     {
         super(model);
-        renderer = new TextArea();
     }
 
     @Override
     protected void updateModel()
     {
-        renderer.setOnKeyTyped(event ->
-        {
-            model.setValue(renderer.getText());
-        });
+        model.setValue(renderer.getText());
+    }
+
+    @Override
+    protected void initializeRenderer()
+    {
+        renderer = new TextArea();
+        renderer.setOnKeyTyped(event -> updateModel());
     }
 
     @Override
@@ -30,15 +33,15 @@ public class TextComponent extends UIComponent<StringModel, TextArea>
     {
         super.attachModel(model);
 
-        renderer.setText(this.model.getValue());
+        renderer.setText(this.model.get());
     }
 
     @Override
     public void valueChanged()
     {
-        if (!renderer.getText().equals(this.model.getValue()))
+        if (!renderer.getText().equals(this.model.get()))
         {
-            renderer.setText(this.model.getValue());
+            renderer.setText(this.model.get());
         }
     }
 }

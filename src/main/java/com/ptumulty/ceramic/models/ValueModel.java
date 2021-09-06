@@ -7,16 +7,16 @@ public abstract class ValueModel<T>
 {
     private List<ValueListener> listeners;
     protected T value;
-    protected boolean settable;
+    protected boolean isSettable;
 
     ValueModel(T value)
     {
         this.value = value;
         listeners = new ArrayList<>();
-        settable = true;
+        isSettable = true;
     }
 
-    public T getValue()
+    public T get()
     {
         return value;
     }
@@ -32,12 +32,18 @@ public abstract class ValueModel<T>
 
     public boolean isSettable()
     {
-        return settable;
+        return isSettable;
     }
 
-    public void setSettable(boolean settable)
+    public void setIsSettable(boolean isSettable)
     {
-        this.settable = settable;
+        this.isSettable = isSettable;
+    }
+
+    @Override
+    public String toString()
+    {
+        return value.toString();
     }
 
     public void addListener(ValueListener listener)
@@ -58,6 +64,10 @@ public abstract class ValueModel<T>
         listeners.forEach(ValueListener::valueChanged);
     }
 
+    /**
+     * Simple listener for listening to value changes. Only fires when the new value is different from the
+     * current value.
+     */
     public interface ValueListener
     {
         /**

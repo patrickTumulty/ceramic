@@ -1,16 +1,18 @@
 package com.ptumulty.ceramic.components;
 
-import com.pt.mug.Utility.Disposable;
+
 import com.ptumulty.ceramic.models.ValueModel;
+import com.ptumulty.ceramic.utility.Disposable;
 import javafx.scene.control.Control;
 
-public abstract class UIComponent<T extends ValueModel, V extends Control> implements Disposable, ValueModel.ValueListener
+public abstract class UIComponent<T extends ValueModel<?>, V extends Control> implements Disposable, ValueModel.ValueListener
 {
     protected T model;
     protected V renderer;
 
     UIComponent(T model)
     {
+        initializeRenderer();
         if (model != null)
         {
             attachModel(model);
@@ -18,9 +20,14 @@ public abstract class UIComponent<T extends ValueModel, V extends Control> imple
     }
 
     /**
-     * This method takes a change in the UIComponent to update the value model
+     * This method is meant to apply the UI components state to a value
      */
     protected abstract void updateModel();
+
+    /**
+     * This method is where the renderer should get initialized
+     */
+    protected abstract void initializeRenderer();
 
     public void attachModel(T model)
     {
@@ -29,7 +36,10 @@ public abstract class UIComponent<T extends ValueModel, V extends Control> imple
             this.model = model;
             this.model.addListener(this);
         }
-        updateModel();
+        if (renderer != null)
+        {
+            valueChanged();
+        }
     }
 
     public void detachModel()

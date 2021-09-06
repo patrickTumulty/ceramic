@@ -5,11 +5,11 @@ import java.util.List;
 
 public class ListModel<T> extends ValueModel<List<T>>
 {
-    private List<ListModelListener> listeners;
+    private List<ListModelListener<T>> listeners;
 
     public ListModel()
     {
-        super(new ArrayList<>());
+        this(new ArrayList<>());
         listeners = new ArrayList<>();
     }
 
@@ -22,6 +22,12 @@ public class ListModel<T> extends ValueModel<List<T>>
     {
         value.add(item);
         listeners.forEach(listener -> listener.itemAdded(item));
+    }
+
+    public void addItems(List<T> items)
+    {
+        value.addAll(items);
+        listeners.forEach(ListModelListener::listChanged);
     }
 
     public void removeItem(T item)
@@ -42,32 +48,32 @@ public class ListModel<T> extends ValueModel<List<T>>
         listeners.forEach(ListModelListener::listChanged);
     }
 
-    public List<T> getListItems()
+    public List<T> getItemsSnapshot()
     {
         return new ArrayList<>(List.copyOf(value));
     }
 
     @Override
-    public List<T> getValue()
+    public List<T> get()
     {
-        return getListItems();
+        return getItemsSnapshot();
     }
 
-    public void addListListener(ListModelListener listener)
+    public void addListener(ListModelListener<T> listener)
     {
         listeners.add(listener);
     }
 
-    public void removeListListener(ListModelListener listener)
+    public void removeListener(ListModelListener<T> listener)
     {
         listeners.remove(listener);
     }
 
-    public interface ListModelListener
+    public interface ListModelListener<T>
     {
-        void itemAdded(Object item);
+        void itemAdded(T item);
 
-        void itemRemoved(Object item);
+        void itemRemoved(T item);
 
         void listChanged();
     }
