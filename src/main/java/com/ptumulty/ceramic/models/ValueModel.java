@@ -5,7 +5,7 @@ import java.util.List;
 
 public abstract class ValueModel<T>
 {
-    private List<ValueListener> listeners;
+    private final List<ValueListener> listeners;
     protected T value;
     protected boolean isSettable;
 
