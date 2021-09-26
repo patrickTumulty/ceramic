@@ -1,16 +1,18 @@
 package com.ptumulty.ceramic.components;
 
 
+import com.ptumulty.ceramic.models.BooleanModel;
 import com.ptumulty.ceramic.models.ValueModel;
 import com.ptumulty.ceramic.utility.Disposable;
+import javafx.scene.Node;
 import javafx.scene.control.Control;
 
-public abstract class UIComponent<T extends ValueModel<?>, V extends Control> implements Disposable, ValueModel.ValueListener
+public abstract class UIComponent<T extends ValueModel<?>, V extends Node> implements Disposable, ValueModel.ValueListener
 {
     protected T model;
     protected V renderer;
 
-    UIComponent(T model)
+    public UIComponent(T model)
     {
         initializeRenderer();
         if (model != null)
