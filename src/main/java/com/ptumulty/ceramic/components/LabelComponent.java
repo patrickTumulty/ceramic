@@ -1,11 +1,14 @@
 package com.ptumulty.ceramic.components;
 
-import com.ptumulty.ceramic.models.StringModel;
+import com.ptumulty.ceramic.models.ValueModel;
 import javafx.scene.control.Label;
 
+import java.util.function.Consumer;
 
-public class LabelComponent extends UIComponent<StringModel, Label>
+
+public class LabelComponent extends UIComponent<ValueModel<?>, Label>
 {
+    private ValueToStringConverter converter;
     private String prefix;
     private String suffix;
 
@@ -14,26 +17,26 @@ public class LabelComponent extends UIComponent<StringModel, Label>
         this(null);
     }
 
-    public LabelComponent(StringModel model)
+    public LabelComponent(ValueModel<?> model)
     {
         super(model);
-        prefix = "";
-        suffix = "";
     }
 
     public void setPrefix(String prefix)
     {
         this.prefix = prefix;
+        valueChanged();
     }
 
     public void setSuffix(String suffix)
     {
         this.suffix = suffix;
+        valueChanged();
     }
 
     public String getDisplayedText()
     {
-        return prefix + model.get() + suffix;
+        return prefix + converter.convert(model.get()) + suffix;
     }
 
     @Override
@@ -47,11 +50,19 @@ public class LabelComponent extends UIComponent<StringModel, Label>
     @Override
     protected void initializeRenderer()
     {
+        converter = Object::toString;
+        prefix = "";
+        suffix = "";
         renderer = new Label();
     }
 
+    public void setValueStringConverter(ValueToStringConverter converter)
+    {
+        this.converter = converter;
+    }
+
     @Override
-    public void attachModel(StringModel model)
+    public void attachModel(ValueModel<?> model)
     {
         super.attachModel(model);
         renderer.setText(getDisplayedText());
@@ -61,5 +72,10 @@ public class LabelComponent extends UIComponent<StringModel, Label>
     public void valueChanged()
     {
         renderer.setText(getDisplayedText());
+    }
+
+    public interface ValueToStringConverter
+    {
+        String convert(Object value);
     }
 }

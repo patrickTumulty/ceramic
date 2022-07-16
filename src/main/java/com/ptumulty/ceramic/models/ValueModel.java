@@ -9,7 +9,7 @@ public abstract class ValueModel<T>
     protected T value;
     protected boolean isSettable;
 
-    ValueModel(T value)
+    public ValueModel(T value)
     {
         this.value = value;
         listeners = new ArrayList<>();
