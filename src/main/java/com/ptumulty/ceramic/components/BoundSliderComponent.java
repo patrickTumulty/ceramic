@@ -13,6 +13,8 @@ public class BoundSliderComponent extends UIComponent<BoundIntegerModel, Pane>
     private Slider slider;
     private LabelComponent numberLabelComponent;
     private Orientation orientation;
+    private int width;
+    private int labelWidth;
     private int nodeSpacing;
 
     public BoundSliderComponent(BoundIntegerModel model)
@@ -43,6 +45,20 @@ public class BoundSliderComponent extends UIComponent<BoundIntegerModel, Pane>
             setAlignment(orientation == Orientation.HORIZONTAL ? Pos.CENTER_LEFT : Pos.TOP_CENTER);
             setSpacing(nodeSpacing);
         }
+    }
+
+    public void setLabelWidth(int width)
+    {
+        this.labelWidth = width;
+        setWidth(this.width);
+    }
+
+    public void setWidth(int width)
+    {
+        this.width = width;
+        slider.setPrefWidth(width - labelWidth);
+        renderer.setMaxWidth(width);
+        renderer.setPrefWidth(width);
     }
 
     public void setAlignment(Pos position)
@@ -80,6 +96,7 @@ public class BoundSliderComponent extends UIComponent<BoundIntegerModel, Pane>
     protected void initializeRenderer()
     {
         nodeSpacing = 0;
+        labelWidth = 30;
 
         slider = new Slider();
         slider.setMajorTickUnit(1);
@@ -88,6 +105,7 @@ public class BoundSliderComponent extends UIComponent<BoundIntegerModel, Pane>
         numberLabelComponent = new LabelComponent();
 
         setOrientation(Orientation.HORIZONTAL);
+        setWidth(200);
     }
 
     @Override

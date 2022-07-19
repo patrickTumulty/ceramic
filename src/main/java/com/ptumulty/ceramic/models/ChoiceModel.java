@@ -6,8 +6,8 @@ import java.util.List;
 
 public class ChoiceModel<T> extends ValueModel<T>
 {
-    List<T> choices;
-    List<ChoiceListener<T>> listeners;
+    private final List<T> choices;
+    private final List<ChoiceListener<T>> listeners;
 
     public ChoiceModel(T initialValue, List<T> choices)
     {
@@ -24,9 +24,10 @@ public class ChoiceModel<T> extends ValueModel<T>
     @Override
     public void setValue(T value)
     {
-        if (choices.contains(value))
+        if (choices.contains(value) && this.value != value)
         {
             super.setValue(value);
+            listeners.forEach(listeners -> listeners.choiceModelChanged(value));
         }
     }
 
