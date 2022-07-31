@@ -1,7 +1,7 @@
 package com.ptumulty.ceramic.utility;
 
 import javafx.application.Platform;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 
 public class FxUtils
 {
@@ -15,10 +15,10 @@ public class FxUtils
         Platform.runLater(runnable);
     }
 
-    public static void setStaticPaneSize(Pane pane, int width, int height)
+    public static void setStaticRegionSize(Region region, int width, int height)
     {
-        pane.setMinSize(width, height);
-        pane.setPrefSize(width, height);
-        pane.setMaxSize(width, height);
+        region.setMinSize(width, height);
+        region.setPrefSize(width, height);
+        region.setMaxSize(width, height);
     }
 }
