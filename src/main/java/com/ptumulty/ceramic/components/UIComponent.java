@@ -5,18 +5,39 @@ import com.ptumulty.ceramic.models.ValueModel;
 import com.ptumulty.ceramic.utility.Disposable;
 import javafx.scene.Node;
 
+import java.util.Optional;
+
 public abstract class UIComponent<T extends ValueModel<?>, V extends Node> implements Disposable, ValueModel.ValueListener
 {
+    protected Optional<String> label;
     protected T model;
     protected V renderer;
 
     public UIComponent(T model)
     {
+        label = Optional.empty();
         initializeRenderer();
         if (model != null)
         {
             attachModel(model);
         }
+    }
+
+    /**
+     * @return component label
+     */
+    public Optional<String> getLabel()
+    {
+        return label;
+    }
+
+    /**
+     * Set label
+     * @param label component label
+     */
+    public void setLabel(String label)
+    {
+        this.label = Optional.of(label);
     }
 
     /**
