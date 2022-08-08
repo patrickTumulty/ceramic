@@ -1,7 +1,10 @@
 package com.ptumulty.ceramic.utility;
 
 import javafx.application.Platform;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Paint;
 
 public class FxUtils
 {
@@ -20,5 +23,10 @@ public class FxUtils
         region.setMinSize(width, height);
         region.setPrefSize(width, height);
         region.setMaxSize(width, height);
+    }
+
+    public static Background backgroundFill(Paint color)
+    {
+        return new Background(new BackgroundFill(color, null, null));
     }
 }
