@@ -22,7 +22,6 @@ public class ComponentSettingGroup
 
         Label groupLabel = new Label(label);
         borderPane.setTop(groupLabel);
-        groupLabel.setStyle("-fx-font-size: larger;");
         BorderPane.setAlignment(groupLabel, Pos.CENTER_LEFT);
         BorderPane.setMargin(groupLabel, new Insets(0, 0, 10, 10));
 
