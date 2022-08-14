@@ -1,50 +1,22 @@
 package com.ptumulty.ceramic.components;
 
 import com.ptumulty.ceramic.models.BoundIntegerModel;
-import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.Slider;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.StackPane;
 
 public class BoundSliderComponent extends UIComponent<BoundIntegerModel, Pane>
 {
     private Slider slider;
-    private LabelComponent numberLabelComponent;
-    private Orientation orientation;
+    private IntegerInputComponent numberEntryComponent;
     private int width;
     private int labelWidth;
-    private int nodeSpacing;
 
     public BoundSliderComponent(BoundIntegerModel model)
     {
         super(model);
-    }
-
-    public LabelComponent getLabelComponent()
-    {
-        return numberLabelComponent;
-    }
-
-    public Slider getSlider()
-    {
-        return slider;
-    }
-
-    public void setOrientation(Orientation orientation)
-    {
-        if (this.orientation != orientation)
-        {
-            this.orientation = orientation;
-            Pane layoutRenderer = orientation == Orientation.HORIZONTAL ? new HBox() : new VBox();
-            layoutRenderer.getChildren().add(slider);
-            layoutRenderer.getChildren().add(numberLabelComponent.getRenderer());
-
-            renderer = layoutRenderer;
-            setAlignment(orientation == Orientation.HORIZONTAL ? Pos.CENTER_LEFT : Pos.TOP_CENTER);
-            setSpacing(nodeSpacing);
-        }
     }
 
     public void setLabelWidth(int width)
@@ -61,31 +33,6 @@ public class BoundSliderComponent extends UIComponent<BoundIntegerModel, Pane>
         renderer.setPrefWidth(width);
     }
 
-    public void setAlignment(Pos position)
-    {
-        if (renderer instanceof HBox)
-        {
-            ((HBox) renderer).setAlignment(position);
-        }
-        else if (renderer instanceof VBox)
-        {
-            ((VBox) renderer).setAlignment(position);
-        }
-    }
-
-    public void setSpacing(int spacing)
-    {
-        this.nodeSpacing = spacing;
-        if (renderer instanceof HBox)
-        {
-            ((HBox) renderer).setSpacing(this.nodeSpacing);
-        }
-        else if (renderer instanceof VBox)
-        {
-            ((VBox) renderer).setSpacing(this.nodeSpacing);
-        }
-    }
-
     @Override
     protected void updateModel()
     {
@@ -95,17 +42,26 @@ public class BoundSliderComponent extends UIComponent<BoundIntegerModel, Pane>
     @Override
     protected void initializeRenderer()
     {
-        nodeSpacing = 0;
-        labelWidth = 30;
+        labelWidth = 70;
 
         slider = new Slider();
         slider.setMajorTickUnit(1);
         slider.valueProperty().addListener((observable, oldValue, newValue) -> updateModel());
 
-        numberLabelComponent = new LabelComponent();
+        numberEntryComponent = new IntegerInputComponent();
+        numberEntryComponent.getRenderer().setPrefWidth(labelWidth);
+        numberEntryComponent.getRenderer().setAlignment(Pos.CENTER);
 
-        setOrientation(Orientation.HORIZONTAL);
-        setWidth(200);
+        renderer = new AnchorPane();
+        StackPane sliderPane = new StackPane(slider);
+        sliderPane.prefHeightProperty().bind(renderer.heightProperty());
+        StackPane.setAlignment(slider, Pos.CENTER);
+        renderer.getChildren().add(sliderPane);
+        renderer.getChildren().add(numberEntryComponent.getRenderer());
+        AnchorPane.setLeftAnchor(sliderPane, (double) 0);
+        AnchorPane.setRightAnchor(numberEntryComponent.getRenderer(), (double) 0);
+
+        slider.prefWidthProperty().bind(renderer.widthProperty().subtract(numberEntryComponent.getRenderer().widthProperty().add(5)));
     }
 
     @Override
@@ -116,7 +72,7 @@ public class BoundSliderComponent extends UIComponent<BoundIntegerModel, Pane>
         valueChanged();
         slider.setMax(model.getUpperBounds());
         slider.setMin(model.getLowerBounds());
-        numberLabelComponent.attachModel(model);
+        numberEntryComponent.attachModel(model);
     }
 
     @Override
