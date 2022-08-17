@@ -53,6 +53,7 @@ public class BoundSliderComponent extends UIComponent<BoundIntegerModel, Pane>
         numberEntryComponent.getRenderer().setAlignment(Pos.CENTER);
 
         renderer = new AnchorPane();
+        renderer.setPrefWidth(500);
         StackPane sliderPane = new StackPane(slider);
         sliderPane.prefHeightProperty().bind(renderer.heightProperty());
         StackPane.setAlignment(slider, Pos.CENTER);

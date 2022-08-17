@@ -51,11 +51,6 @@ public class ComponentSettingGroup
             }
 
             lineItem.getChildren().add(component.getRenderer());
-            if (component.getRenderer() instanceof Region)
-            {
-                ((Region) component.getRenderer()).prefWidthProperty().bind(lineItem.widthProperty());
-            }
-
 
             if (component.getLabel().isEmpty())
             {
