@@ -43,10 +43,36 @@ public class FourCornerPane extends BorderPane
         bottom.setRight(bottomRight);
         BorderPane.setAlignment(bottomRight, Pos.BOTTOM_RIGHT);
 
-        topRight.prefWidthProperty().bind(topLeft.widthProperty());
-        topLeft.prefWidthProperty().bind(topRight.widthProperty());
-        bottomLeft.prefWidthProperty().bind(bottomRight.widthProperty());
-        bottomRight.prefWidthProperty().bind(bottomLeft.widthProperty());
+        setBindTopContainerWidths(true);
+        setBindBottomContainerWidths(true);
+    }
+
+    public void setBindBottomContainerWidths(boolean bind)
+    {
+        if (bind)
+        {
+            bottomLeft.prefWidthProperty().bind(bottomRight.widthProperty());
+            bottomRight.prefWidthProperty().bind(bottomLeft.widthProperty());
+        }
+        else
+        {
+            bottomLeft.prefWidthProperty().unbind();
+            bottomRight.prefWidthProperty().unbind();
+        }
+    }
+
+    public void setBindTopContainerWidths(boolean bind)
+    {
+        if (bind)
+        {
+            topRight.prefWidthProperty().bind(topLeft.widthProperty());
+            topLeft.prefWidthProperty().bind(topRight.widthProperty());
+        }
+        else
+        {
+            topRight.prefWidthProperty().unbind();
+            topLeft.prefWidthProperty().unbind();
+        }
     }
 
     public void setSpacing(int spacing)
