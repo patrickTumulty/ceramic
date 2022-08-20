@@ -18,7 +18,6 @@ public class ComponentSettingGroup
     private final int LABEL_SPACING = 150;
     private final VBox vBox;
     private final Label groupLabel;
-    private Label settingLabel;
 
     public ComponentSettingGroup(String label, List<UIComponent<?, ?>> components)
     {
@@ -54,7 +53,7 @@ public class ComponentSettingGroup
 
             if (component.getLabel().isPresent())
             {
-                settingLabel = new Label(component.getLabel().get());
+                Label settingLabel = new Label(component.getLabel().get());
                 settingLabel.setAlignment(Pos.CENTER_RIGHT);
                 settingLabel.setTextAlignment(TextAlignment.RIGHT);
                 settingLabel.setMinWidth(LABEL_SPACING);
