@@ -1,9 +1,8 @@
 package com.ptumulty.ceramic.components;
 
 import com.ptumulty.ceramic.models.ValueModel;
+import com.ptumulty.ceramic.utility.FxUtils;
 import javafx.scene.control.Label;
-
-import java.util.function.Consumer;
 
 
 public class LabelComponent extends UIComponent<ValueModel<?>, Label>
@@ -65,13 +64,13 @@ public class LabelComponent extends UIComponent<ValueModel<?>, Label>
     public void attachModel(ValueModel<?> model)
     {
         super.attachModel(model);
-        renderer.setText(getDisplayedText());
+        valueChanged();
     }
 
     @Override
     public void valueChanged()
     {
-        renderer.setText(getDisplayedText());
+        FxUtils.run(() -> renderer.setText(getDisplayedText()));
     }
 
     public interface ValueToStringConverter
