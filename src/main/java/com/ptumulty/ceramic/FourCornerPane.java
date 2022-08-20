@@ -26,6 +26,11 @@ public class FourCornerPane extends BorderPane
         bottomLeft = new HBox();
         bottomRight = new HBox();
 
+        topLeft.setAlignment(Pos.TOP_LEFT);
+        topRight.setAlignment(Pos.TOP_RIGHT);
+        bottomLeft.setAlignment(Pos.BOTTOM_LEFT);
+        bottomRight.setAlignment(Pos.BOTTOM_RIGHT);
+
         setTop(top);
         top.setLeft(topLeft);
         BorderPane.setAlignment(topLeft, Pos.TOP_LEFT);
