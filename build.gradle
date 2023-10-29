@@ -1,26 +1,7 @@
 
-plugins {
-    id 'java-library'
-    id "org.openjfx.javafxplugin"
-}
-
-group 'com.ptumulty'
-version '1.0-SNAPSHOT'
-
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    implementation 'org.jetbrains:annotations:20.1.0'
-    compileOnly group: 'uk.gov.nationalarchives.thirdparty.netbeans', name: 'org-openide-util', version: '7.2'
-
-    implementation 'org.kordamp.ikonli:ikonli-javafx:12.2.0'
-    implementation 'org.kordamp.ikonli:ikonli-carbonicons-pack:12.2.0'
-    implementation 'org.kordamp.ikonli:ikonli-fontawesome5-pack:12.2.0'
-}
-
-javafx {
-    version = '17.0.2'
-    modules = ['javafx.controls']
+task buildCeramic {
+    dependsOn(
+            "CeramicAPI:build",
+            "CeramicUIAPI:build"
+    )
 }
