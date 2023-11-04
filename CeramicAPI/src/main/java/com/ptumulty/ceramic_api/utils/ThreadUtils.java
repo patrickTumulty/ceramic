@@ -1,5 +1,7 @@
 package com.ptumulty.ceramic_api.utils;
 
+import org.jetbrains.annotations.Nullable;
+
 public class ThreadUtils
 {
     /**
@@ -9,8 +11,23 @@ public class ThreadUtils
      */
     public static void run(Runnable runnable)
     {
+        run(null, runnable);
+    }
+
+    /**
+     * Run runnable in a detached thread
+     *
+     * @param threadName thread name
+     * @param runnable runnable
+     */
+    public static void run(@Nullable String threadName, Runnable runnable)
+    {
         Thread thread = new Thread(runnable);
         thread.setDaemon(true);
+        if (threadName != null)
+        {
+            thread.setName(threadName);
+        }
         thread.start();
     }
 
@@ -19,7 +36,7 @@ public class ThreadUtils
      *
      * @param millis milliseconds to sleep
      */
-    public static void safeSleep(int millis)
+    public static void safeSleep(long millis)
     {
         try
         {

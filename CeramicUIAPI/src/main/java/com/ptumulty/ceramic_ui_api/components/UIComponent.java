@@ -4,18 +4,19 @@ package com.ptumulty.ceramic_ui_api.components;
 import com.ptumulty.ceramic_api.ValueModel;
 import com.ptumulty.ceramic_api.utils.Disposable;
 import javafx.scene.Node;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
 public abstract class UIComponent<T extends ValueModel<?>, V extends Node> implements Disposable, ValueModel.ValueListener
 {
-    protected Optional<String> label;
+    protected @Nullable String label;
     protected T model;
     protected V renderer;
 
     public UIComponent(T model)
     {
-        label = Optional.empty();
+        label = null;
         initializeRenderer();
         if (model != null)
         {
@@ -28,16 +29,16 @@ public abstract class UIComponent<T extends ValueModel<?>, V extends Node> imple
      */
     public Optional<String> getLabel()
     {
-        return label;
+        return Optional.ofNullable(label);
     }
 
     /**
      * Set label
      * @param label component label
      */
-    public void setLabel(String label)
+    public void setLabel(@Nullable String label)
     {
-        this.label = Optional.of(label);
+        this.label = label;
     }
 
     /**
@@ -65,7 +66,7 @@ public abstract class UIComponent<T extends ValueModel<?>, V extends Node> imple
 
     public void detachModel()
     {
-        this.model.removeListener(this);
+        model.removeListener(this);
     }
 
     public V getRenderer()
@@ -76,6 +77,6 @@ public abstract class UIComponent<T extends ValueModel<?>, V extends Node> imple
     @Override
     public void dispose()
     {
-        model.removeListener(this);
+        detachModel();
     }
 }
