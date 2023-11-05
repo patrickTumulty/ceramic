@@ -1,0 +1,9 @@
+
+
+.indicator-active {
+    -fx-fill: indicator-active-fill;
+}
+
+.indicator-inactive {
+    -fx-fill: indicator-inactive-fill;
+}
