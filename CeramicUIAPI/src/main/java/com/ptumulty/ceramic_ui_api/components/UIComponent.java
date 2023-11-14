@@ -66,7 +66,10 @@ public abstract class UIComponent<T extends ValueModel<?>, V extends Node> imple
 
     public void detachModel()
     {
-        model.removeListener(this);
+        if (model != null)
+        {
+            model.removeListener(this);
+        }
     }
 
     public V getRenderer()
