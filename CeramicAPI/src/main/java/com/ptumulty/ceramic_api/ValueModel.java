@@ -48,20 +48,32 @@ public abstract class ValueModel<T>
 
     public void addListener(ValueListener listener)
     {
-        if (!listeners.contains(listener))
+        synchronized (listeners)
         {
-            listeners.add(listener);
+            if (!listeners.contains(listener))
+            {
+                listeners.add(listener);
+            }
         }
     }
 
     public void removeListener(ValueListener listener)
     {
-        listeners.remove(listener);
+        synchronized (listeners)
+        {
+            listeners.remove(listener);
+        }
     }
 
     protected void notifyValueListeners()
     {
-        listeners.forEach(ValueListener::valueChanged);
+        synchronized (listeners)
+        {
+            for (var listener : listeners)
+            {
+                listener.valueChanged();
+            }
+        }
     }
 
     /**
