@@ -14,4 +14,9 @@ public class NumUtils
     {
         return Math.min(Math.max(value, lower), upper);
     }
+
+    public static double clamp(double value, double lower, double upper)
+    {
+        return Math.min(Math.max(value, lower), upper);
+    }
 }
