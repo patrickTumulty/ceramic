@@ -76,6 +76,13 @@ public class XmlUtils
         return Optional.empty();
     }
 
+    public static void appendChildElement(Element parent, String tagName, String textValue)
+    {
+        Element element = parent.getOwnerDocument().createElement(tagName);
+        element.setTextContent(textValue);
+        parent.appendChild(element);
+    }
+
     public static Document getDocumentFromFile(File file) throws ParserConfigurationException, IOException, SAXException
     {
         return DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(file);
