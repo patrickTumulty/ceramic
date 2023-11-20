@@ -2,6 +2,7 @@ package com.ptumulty.ceramic_ui_api.components;
 
 import com.ptumulty.ceramic_api.BooleanModel;
 import javafx.scene.control.CheckBox;
+import org.jetbrains.annotations.Nullable;
 
 public class BooleanComponent extends UIComponent<BooleanModel, CheckBox>
 {
@@ -10,10 +11,18 @@ public class BooleanComponent extends UIComponent<BooleanModel, CheckBox>
         super(model);
     }
 
+    public BooleanComponent(@Nullable String label, BooleanModel model)
+    {
+        super(label, model);
+    }
+
     @Override
     protected void updateModel()
     {
-        model.setValue(renderer.selectedProperty().getValue());
+        if (model != null)
+        {
+            model.setValue(renderer.selectedProperty().getValue());
+        }
     }
 
     @Override
@@ -26,6 +35,9 @@ public class BooleanComponent extends UIComponent<BooleanModel, CheckBox>
     @Override
     public void valueChanged()
     {
-        renderer.selectedProperty().setValue(model.get());
+        if (model != null)
+        {
+            renderer.selectedProperty().setValue(model.get());
+        }
     }
 }

@@ -6,4 +6,9 @@ public class BooleanModel extends ValueModel<Boolean>
     {
         super(value);
     }
+
+    public BooleanModel(Boolean value, Boolean defaultValue)
+    {
+        super(value, defaultValue);
+    }
 }

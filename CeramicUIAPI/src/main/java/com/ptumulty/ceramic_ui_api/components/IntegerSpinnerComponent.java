@@ -3,17 +3,29 @@ package com.ptumulty.ceramic_ui_api.components;
 import com.ptumulty.ceramic_api.IntegerModel;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
+import org.jetbrains.annotations.Nullable;
 
 public class IntegerSpinnerComponent extends UIComponent<IntegerModel, Spinner<Integer>>
 {
     /**
      * Constructor
      *
-     * @param integerModel integer spinner model
+     * @param model integer spinner model
      */
-    public IntegerSpinnerComponent(IntegerModel integerModel)
+    public IntegerSpinnerComponent(IntegerModel model)
     {
-        super(integerModel);
+        super(model);
+    }
+
+    /**
+     * Constructor
+     *
+     * @param label component label
+     * @param model integer spinner model
+     */
+    public IntegerSpinnerComponent(@Nullable String label, IntegerModel model)
+    {
+        super(label, model);
     }
 
     /**
@@ -22,7 +34,10 @@ public class IntegerSpinnerComponent extends UIComponent<IntegerModel, Spinner<I
     @Override
     protected void updateModel()
     {
-        model.setValue(renderer.getValue());
+        if (model != null)
+        {
+            model.setValue(renderer.getValue());
+        }
     }
 
     /**
@@ -43,6 +58,9 @@ public class IntegerSpinnerComponent extends UIComponent<IntegerModel, Spinner<I
     @Override
     public void valueChanged()
     {
-        renderer.getEditor().setText(model.get().toString());
+        if (model != null)
+        {
+            renderer.getEditor().setText(model.get().toString());
+        }
     }
 }

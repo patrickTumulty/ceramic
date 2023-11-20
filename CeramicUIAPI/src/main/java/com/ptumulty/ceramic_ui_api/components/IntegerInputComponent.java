@@ -62,6 +62,9 @@ public class IntegerInputComponent extends UIComponent<IntegerModel, TextField>
     @Override
     public void valueChanged()
     {
-        renderer.setText(Integer.toString(this.model.get()));
+        if (model != null)
+        {
+            renderer.setText(Integer.toString(this.model.get()));
+        }
     }
 }

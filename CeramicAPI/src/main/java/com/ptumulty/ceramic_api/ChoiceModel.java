@@ -7,28 +7,18 @@ import java.util.List;
 public class ChoiceModel<T> extends ValueModel<T>
 {
     private final List<T> choices;
-    private final List<ChoiceListener<T>> listeners;
 
     public ChoiceModel(T initialValue, List<T> choices)
     {
         super(initialValue);
         this.choices = choices;
-        listeners = new ArrayList<>();
+
+        setComparator((currentValue, newValue) -> choices.contains(newValue) && currentValue != newValue);
     }
 
     public final List<T> getChoiceItems()
     {
         return Collections.unmodifiableList(choices);
-    }
-
-    @Override
-    public void setValue(T value)
-    {
-        if (choices.contains(value) && this.value != value)
-        {
-            super.setValue(value);
-            listeners.forEach(listeners -> listeners.choiceModelChanged(value));
-        }
     }
 
     public void setValue(int index)
@@ -47,21 +37,6 @@ public class ChoiceModel<T> extends ValueModel<T>
     public void removeChoice(T item)
     {
         choices.remove(item);
-    }
-
-    public void addListener(ChoiceListener<T> listener)
-    {
-        listeners.add(listener);
-    }
-
-    public void removeListener(ChoiceListener<T> listener)
-    {
-        listeners.remove(listener);
-    }
-
-    public interface ChoiceListener<T>
-    {
-        void choiceModelChanged(T currentValue);
     }
 }
 

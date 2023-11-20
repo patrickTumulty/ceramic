@@ -19,6 +19,11 @@ public class BoundSliderComponent extends UIComponent<BoundIntegerModel, Pane>
         super(model);
     }
 
+    public BoundSliderComponent(String label, BoundIntegerModel model)
+    {
+        super(label, model);
+    }
+
     public void setLabelWidth(int width)
     {
         this.labelWidth = width;
@@ -36,7 +41,10 @@ public class BoundSliderComponent extends UIComponent<BoundIntegerModel, Pane>
     @Override
     protected void updateModel()
     {
-        model.setValue((int) slider.getValue());
+        if (model != null)
+        {
+            model.setValue((int) slider.getValue());
+        }
     }
 
     @Override
@@ -79,6 +87,11 @@ public class BoundSliderComponent extends UIComponent<BoundIntegerModel, Pane>
     @Override
     public void valueChanged()
     {
+        if (model == null)
+        {
+            return;
+        }
+
         if (slider.getValue() != model.get())
         {
             slider.setValue(model.get());

@@ -4,7 +4,6 @@ package com.ptumulty.ceramic_api;
 import com.ptumulty.ceramic_api.utils.NumUtils;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Objects;
 import java.util.Optional;
 
 public class BoundIntegerModel extends IntegerModel
@@ -25,19 +24,8 @@ public class BoundIntegerModel extends IntegerModel
 
         this.lowerBounds = Optional.ofNullable(lowerBounds).orElse(Integer.MIN_VALUE);
         this.upperBounds = Optional.ofNullable(upperBounds).orElse(Integer.MAX_VALUE);
-    }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setValue(Integer value)
-    {
-        if (!Objects.equals(value, this.value))
-        {
-            this.value = NumUtils.clamp(value, lowerBounds, upperBounds);
-            notifyValueListeners();
-        }
+        setValueModifier(x -> NumUtils.clamp(x, this.lowerBounds, this.upperBounds));
     }
 
     /**

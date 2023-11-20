@@ -2,18 +2,66 @@ package com.ptumulty.ceramic_api;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
-public abstract class ValueModel<T>
+public abstract class ValueModel<T> implements Defaultable<T>
 {
     private final List<ValueListener> listeners;
+    private boolean isModified;
+    private Comparator<T> comparator;
+    private Function<T, T> valueModifier;
     protected T value;
+    protected T defaultValue;
     protected boolean isSettable;
 
     public ValueModel(T value)
     {
+        this(value, value);
+    }
+
+    public ValueModel(T value, T defaultValue)
+    {
         this.value = value;
+        this.defaultValue = defaultValue;
         listeners = new ArrayList<>();
+        comparator = (lhs, rhs) -> lhs == rhs;
+        valueModifier = x -> x;
+        isModified = false;
         isSettable = true;
+    }
+
+    public void setValueModifier(Function<T, T> modifier)
+    {
+        this.valueModifier = modifier;
+    }
+
+    @Override
+    public boolean isModified()
+    {
+        return isModified;
+    }
+
+    @Override
+    public void restoreDefault()
+    {
+        setValue(defaultValue);
+    }
+
+    @Override
+    public void setDefault(T defaultValue)
+    {
+        this.defaultValue = defaultValue;
+    }
+
+    @Override
+    public T getDefault()
+    {
+        return defaultValue;
+    }
+
+    public void setComparator(Comparator<T> comparator)
+    {
+        this.comparator = comparator;
     }
 
     public T get()
@@ -21,23 +69,18 @@ public abstract class ValueModel<T>
         return value;
     }
 
-    public void setValue(T value)
+    public final void setValue(T value)
     {
-        if (value != this.value)
+        value = valueModifier.apply(value);
+
+        if (comparator.equals(value, this.value))
         {
-            this.value = value;
-            notifyValueListeners();
+            return;
         }
-    }
 
-    public boolean isSettable()
-    {
-        return isSettable;
-    }
-
-    public void setIsSettable(boolean isSettable)
-    {
-        this.isSettable = isSettable;
+        this.value = value;
+        isModified = !comparator.equals(this.value, defaultValue);
+        notifyValueListeners();
     }
 
     @Override
@@ -86,5 +129,10 @@ public abstract class ValueModel<T>
          * Method for handling when the value has changed
          */
         void valueChanged();
+    }
+
+    public interface Comparator<T>
+    {
+        boolean equals(T lhs, T rhs);
     }
 }

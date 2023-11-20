@@ -3,20 +3,29 @@ package com.ptumulty.ceramic_ui_api.components;
 
 import com.ptumulty.ceramic_api.ValueModel;
 import com.ptumulty.ceramic_api.utils.Disposable;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Node;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Optional;
-
-public abstract class UIComponent<T extends ValueModel<?>, V extends Node> implements Disposable, ValueModel.ValueListener
+public abstract class UIComponent<T extends ValueModel<?>, V extends Node> implements Disposable,
+                                                                                      ValueModel.ValueListener
 {
-    protected @Nullable String label;
-    protected T model;
+    protected String label;
+    protected @Nullable T model;
+    protected BooleanProperty modifiedProperty;
+    protected ValueModel.ValueListener modifierListener;
     protected V renderer;
 
     public UIComponent(T model)
     {
-        label = null;
+        this(null, model);
+    }
+
+    public UIComponent(String label, @Nullable T model)
+    {
+        this.label = label;
+        modifiedProperty = new SimpleBooleanProperty(false);
         initializeRenderer();
         if (model != null)
         {
@@ -27,13 +36,14 @@ public abstract class UIComponent<T extends ValueModel<?>, V extends Node> imple
     /**
      * @return component label
      */
-    public Optional<String> getLabel()
+    public String getLabel()
     {
-        return Optional.ofNullable(label);
+        return label;
     }
 
     /**
      * Set label
+     *
      * @param label component label
      */
     public void setLabel(@Nullable String label)
@@ -53,14 +63,36 @@ public abstract class UIComponent<T extends ValueModel<?>, V extends Node> imple
 
     public void attachModel(T model)
     {
+        if (model == null)
+        {
+            return;
+        }
+
         if (this.model != model)
         {
             this.model = model;
             this.model.addListener(this);
+            modifierListener = () -> modifiedProperty.set(this.model.isModified());
+            this.model.addListener(modifierListener);
+            modifiedProperty.set(this.model.isModified());
         }
+
         if (renderer != null)
         {
             valueChanged();
+        }
+    }
+
+    public BooleanProperty modifiedProperty()
+    {
+        return modifiedProperty;
+    }
+
+    public void restoreDefault()
+    {
+        if (model != null)
+        {
+            model.restoreDefault();
         }
     }
 
@@ -68,6 +100,7 @@ public abstract class UIComponent<T extends ValueModel<?>, V extends Node> imple
     {
         if (model != null)
         {
+            model.addListener(modifierListener);
             model.removeListener(this);
         }
     }
