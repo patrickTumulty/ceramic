@@ -4,6 +4,7 @@ import javafx.beans.property.BooleanProperty;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.Side;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -80,7 +81,8 @@ public class ComponentSettingView
     private static void addContextMenu(UIComponent<?, ?> component, Label chevron)
     {
         ContextMenu contextMenu = new ContextMenu();
-        chevron.setContextMenu(contextMenu);
+
+        chevron.setOnMouseClicked((event) -> contextMenu.show(chevron, Side.BOTTOM, 0, 0));
 
         MenuItem menuItem = new MenuItem("Restore Default");
         menuItem.setOnAction((event1) -> component.restoreDefault());
