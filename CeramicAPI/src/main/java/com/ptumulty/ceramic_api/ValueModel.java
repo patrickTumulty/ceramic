@@ -13,6 +13,7 @@ public abstract class ValueModel<T> implements Defaultable<T>
     protected T value;
     protected T defaultValue;
     protected boolean isSettable;
+    protected boolean alwaysNotifyChange;
 
     public ValueModel(T value)
     {
@@ -28,6 +29,18 @@ public abstract class ValueModel<T> implements Defaultable<T>
         valueModifier = x -> x;
         isModified = false;
         isSettable = true;
+        alwaysNotifyChange = false;
+    }
+
+    /**
+     * Set this model to always notify a change in the value. This means
+     * listeners will be notified even if values are set with the same value
+     *
+     * @param alwaysNotifyChange always notify change
+     */
+    public void setAlwaysNotifyChange(boolean alwaysNotifyChange)
+    {
+       this.alwaysNotifyChange = alwaysNotifyChange;
     }
 
     public void setValueModifier(Function<T, T> modifier)
@@ -73,9 +86,12 @@ public abstract class ValueModel<T> implements Defaultable<T>
     {
         value = valueModifier.apply(value);
 
-        if (comparator.equals(value, this.value))
+        if (alwaysNotifyChange)
         {
-            return;
+            if (comparator.equals(value, this.value))
+            {
+                return;
+            }
         }
 
         this.value = value;

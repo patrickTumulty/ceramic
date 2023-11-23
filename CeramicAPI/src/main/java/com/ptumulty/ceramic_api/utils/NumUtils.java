@@ -19,4 +19,19 @@ public class NumUtils
     {
         return Math.min(Math.max(value, lower), upper);
     }
+
+    public static float clampf(float value, float lower, float upper)
+    {
+        return Math.min(Math.max(value, lower), upper);
+    }
+
+    public static double sin(double frequencyHz, double timeDeltaS, double phase)
+    {
+        return Math.sin(2 * Math.PI * frequencyHz * timeDeltaS + phase);
+    }
+
+    public static float sinf(float frequencyHz, float timeDeltaS, float phase)
+    {
+        return (float) sin(frequencyHz, timeDeltaS, phase);
+    }
 }
