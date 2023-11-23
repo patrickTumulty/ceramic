@@ -22,7 +22,7 @@ public class NumUtils
 
     public static float clampf(float value, float lower, float upper)
     {
-        return Math.min(Math.max(value, lower), upper);
+        return Math.max(lower, Math.min(value, upper));
     }
 
     public static double sin(double frequencyHz, double timeDeltaS, double phase)
