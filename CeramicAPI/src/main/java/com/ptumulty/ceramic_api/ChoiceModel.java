@@ -1,6 +1,5 @@
 package com.ptumulty.ceramic_api;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -12,8 +11,6 @@ public class ChoiceModel<T> extends ValueModel<T>
     {
         super(initialValue);
         this.choices = choices;
-
-        setComparator((currentValue, newValue) -> choices.contains(newValue) && currentValue != newValue);
     }
 
     public final List<T> getChoiceItems()

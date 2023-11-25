@@ -8,7 +8,6 @@ public abstract class ValueModel<T> implements Defaultable<T>
 {
     private final List<ValueListener> listeners;
     private boolean isModified;
-    private Comparator<T> comparator;
     private Function<T, T> valueModifier;
     protected T value;
     protected T defaultValue;
@@ -25,7 +24,6 @@ public abstract class ValueModel<T> implements Defaultable<T>
         this.value = value;
         this.defaultValue = defaultValue;
         listeners = new ArrayList<>();
-        comparator = (lhs, rhs) -> lhs == rhs;
         valueModifier = x -> x;
         isModified = false;
         isSettable = true;
@@ -40,7 +38,7 @@ public abstract class ValueModel<T> implements Defaultable<T>
      */
     public void setAlwaysNotifyChange(boolean alwaysNotifyChange)
     {
-       this.alwaysNotifyChange = alwaysNotifyChange;
+        this.alwaysNotifyChange = alwaysNotifyChange;
     }
 
     public void setValueModifier(Function<T, T> modifier)
@@ -72,11 +70,6 @@ public abstract class ValueModel<T> implements Defaultable<T>
         return defaultValue;
     }
 
-    public void setComparator(Comparator<T> comparator)
-    {
-        this.comparator = comparator;
-    }
-
     public T get()
     {
         return value;
@@ -86,16 +79,13 @@ public abstract class ValueModel<T> implements Defaultable<T>
     {
         value = valueModifier.apply(value);
 
-        if (alwaysNotifyChange)
+        if (!alwaysNotifyChange && (value == this.value))
         {
-            if (comparator.equals(value, this.value))
-            {
-                return;
-            }
+            return;
         }
 
         this.value = value;
-        isModified = !comparator.equals(this.value, defaultValue);
+        isModified = this.value != defaultValue;
         notifyValueListeners();
     }
 
@@ -145,10 +135,5 @@ public abstract class ValueModel<T> implements Defaultable<T>
          * Method for handling when the value has changed
          */
         void valueChanged();
-    }
-
-    public interface Comparator<T>
-    {
-        boolean equals(T lhs, T rhs);
     }
 }
