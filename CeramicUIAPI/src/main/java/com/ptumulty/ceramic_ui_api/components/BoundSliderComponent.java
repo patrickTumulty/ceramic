@@ -3,16 +3,13 @@ package com.ptumulty.ceramic_ui_api.components;
 import com.ptumulty.ceramic_api.BoundIntegerModel;
 import javafx.geometry.Pos;
 import javafx.scene.control.Slider;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.HBox;
 
-public class BoundSliderComponent extends UIComponent<BoundIntegerModel, Pane>
+public class BoundSliderComponent extends UIComponent<BoundIntegerModel, HBox>
 {
+    private static final int DEFAULT_LABEL_WIDTH = 70;
     private Slider slider;
     private IntegerInputComponent numberEntryComponent;
-    private int width;
-    private int labelWidth;
 
     public BoundSliderComponent(BoundIntegerModel model)
     {
@@ -22,20 +19,6 @@ public class BoundSliderComponent extends UIComponent<BoundIntegerModel, Pane>
     public BoundSliderComponent(String label, BoundIntegerModel model)
     {
         super(label, model);
-    }
-
-    public void setLabelWidth(int width)
-    {
-        this.labelWidth = width;
-        setWidth(this.width);
-    }
-
-    public void setWidth(int width)
-    {
-        this.width = width;
-        slider.setPrefWidth(width - labelWidth);
-        renderer.setMaxWidth(width);
-        renderer.setPrefWidth(width);
     }
 
     @Override
@@ -50,27 +33,23 @@ public class BoundSliderComponent extends UIComponent<BoundIntegerModel, Pane>
     @Override
     protected void initializeRenderer()
     {
-        labelWidth = 70;
-
         slider = new Slider();
         slider.setMajorTickUnit(1);
         slider.valueProperty().addListener((observable, oldValue, newValue) -> updateModel());
 
         numberEntryComponent = new IntegerInputComponent();
-        numberEntryComponent.getRenderer().setPrefWidth(labelWidth);
+        numberEntryComponent.getRenderer().setMinWidth(DEFAULT_LABEL_WIDTH);
+        numberEntryComponent.getRenderer().setMaxWidth(DEFAULT_LABEL_WIDTH);
+        numberEntryComponent.getRenderer().setPrefWidth(DEFAULT_LABEL_WIDTH);
         numberEntryComponent.getRenderer().setAlignment(Pos.CENTER);
 
-        renderer = new AnchorPane();
+        renderer = new HBox();
+        renderer.setSpacing(5);
+        renderer.setAlignment(Pos.CENTER);
         renderer.setPrefWidth(500);
-        StackPane sliderPane = new StackPane(slider);
-        sliderPane.prefHeightProperty().bind(renderer.heightProperty());
-        StackPane.setAlignment(slider, Pos.CENTER);
-        renderer.getChildren().add(sliderPane);
-        renderer.getChildren().add(numberEntryComponent.getRenderer());
-        AnchorPane.setLeftAnchor(sliderPane, (double) 0);
-        AnchorPane.setRightAnchor(numberEntryComponent.getRenderer(), (double) 0);
 
-        slider.prefWidthProperty().bind(renderer.widthProperty().subtract(numberEntryComponent.getRenderer().widthProperty().add(5)));
+        renderer.getChildren().add(slider);
+        renderer.getChildren().add(numberEntryComponent.getRenderer());
     }
 
     @Override
