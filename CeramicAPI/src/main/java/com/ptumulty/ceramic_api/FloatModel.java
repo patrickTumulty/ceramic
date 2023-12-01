@@ -6,4 +6,10 @@ public class FloatModel extends ValueModel<Float>
     {
         super(value);
     }
+
+    public FloatModel(Float value, boolean alwaysNotify)
+    {
+       this(value);
+       setAlwaysNotifyChange(alwaysNotify);
+    }
 }
