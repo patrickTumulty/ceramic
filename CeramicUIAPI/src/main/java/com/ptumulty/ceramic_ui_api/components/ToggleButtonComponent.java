@@ -1,6 +1,7 @@
 package com.ptumulty.ceramic_ui_api.components;
 
 import com.ptumulty.ceramic_api.BooleanModel;
+import javafx.application.Platform;
 import javafx.scene.control.ToggleButton;
 import org.jetbrains.annotations.Nullable;
 import org.kordamp.ikonli.javafx.FontIcon;
@@ -17,9 +18,9 @@ public class ToggleButtonComponent extends UIComponent<BooleanModel, ToggleButto
         super(model);
 
         renderer.selectedProperty()
-                .addListener((observable, oldValue, newValue) -> renderer.setGraphic(newValue ?
-                                                                                     selectedIcon :
-                                                                                     deselectedIcon));
+                .addListener((observable, oldValue, newValue) -> Platform.runLater(() -> renderer.setGraphic(newValue ?
+                                                                                                             selectedIcon :
+                                                                                                             deselectedIcon)));
         if (this.model != null)
         {
             renderer.setGraphic(this.model.get() ? selectedIcon : deselectedIcon);
