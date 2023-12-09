@@ -1,0 +1,97 @@
+package com.ptumulty.ceramic_ui_api.components;
+
+import com.ptumulty.ceramic_api.KeyboardCommand;
+import com.ptumulty.ceramic_api.KeyboardCommandModel;
+import javafx.application.Platform;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import org.jetbrains.annotations.Nullable;
+import org.kordamp.ikonli.fontawesome5.FontAwesomeSolid;
+import org.kordamp.ikonli.javafx.FontIcon;
+
+public class KeyboardCommandComponent extends UIComponent<KeyboardCommandModel, GridPane>
+{
+    private BooleanProperty disabledButtonProperty;
+    private TextField textField;
+    private FontIcon keyboardIcon;
+    private FontIcon clearIcon;
+
+    public KeyboardCommandComponent(KeyboardCommandModel model)
+    {
+        super(model);
+    }
+
+    public KeyboardCommandComponent(String label, @Nullable KeyboardCommandModel model)
+    {
+        super(label, model);
+    }
+
+    @Override
+    public void valueChanged()
+    {
+        if (model != null)
+        {
+            Platform.runLater(() -> textField.setText(model.get().toString()));
+        }
+    }
+
+    @Override
+    protected void updateModel()
+    {
+
+    }
+
+    public FontIcon getKeyboardIcon()
+    {
+       return keyboardIcon;
+    }
+
+    public FontIcon getTrashIcon()
+    {
+        return clearIcon;
+    }
+
+    @Override
+    protected void initializeRenderer()
+    {
+        disabledButtonProperty = new SimpleBooleanProperty(false);
+
+        renderer = new GridPane();
+        renderer.setHgap(5);
+        renderer.setAlignment(Pos.CENTER);
+
+        textField = new TextField();
+        textField.setAlignment(Pos.CENTER);
+        textField.setEditable(false);
+        renderer.add(textField, 0, 0);
+
+        Button keyboardButton = new Button();
+        keyboardButton.disableProperty().bind(disabledButtonProperty);
+        keyboardIcon = new FontIcon(FontAwesomeSolid.KEYBOARD);
+        keyboardButton.setGraphic(keyboardIcon);
+        keyboardButton.setOnAction(event -> {
+            if (model != null)
+            {
+                disabledButtonProperty.set(true);
+                model.updateValueWithNextKeyCommand()
+                     .thenAccept(result -> Platform.runLater(() -> disabledButtonProperty.set(false)));
+            }
+        });
+        renderer.add(keyboardButton, 1, 0);
+
+        clearIcon = new FontIcon(FontAwesomeSolid.TRASH_ALT);
+        Button clearButton = new Button();
+        clearButton.disableProperty().bind(disabledButtonProperty);
+        clearButton.setGraphic(clearIcon);
+        clearButton.setOnAction(event -> {
+            if (model != null) {
+                model.setValue(KeyboardCommand.UNSET);
+            }
+        });
+        renderer.add(clearButton, 2, 0);
+    }
+}
