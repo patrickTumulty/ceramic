@@ -3,7 +3,7 @@ package com.ptumulty.ceramic_ui_api.components;
 import com.ptumulty.ceramic_api.StringModel;
 import javafx.scene.control.TextArea;
 
-public class TextComponent extends UIComponent<StringModel, TextArea>
+public class TextComponent extends UIComponent<String, StringModel, TextArea>
 {
     public TextComponent()
     {
@@ -33,12 +33,20 @@ public class TextComponent extends UIComponent<StringModel, TextArea>
     {
         super.attachModel(model);
 
-        renderer.setText(this.model.get());
+        if (this.model != null)
+        {
+            renderer.setText(this.model.get());
+        }
     }
 
     @Override
-    public void valueChanged()
+    public void valueChanged(String prev, String curr)
     {
+        if (this.model == null)
+        {
+            return;
+        }
+
         if (!renderer.getText().equals(this.model.get()))
         {
             renderer.setText(this.model.get());

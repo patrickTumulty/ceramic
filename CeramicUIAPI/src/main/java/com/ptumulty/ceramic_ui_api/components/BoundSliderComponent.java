@@ -5,7 +5,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.HBox;
 
-public class BoundSliderComponent extends UIComponent<BoundIntegerModel, HBox>
+public class BoundSliderComponent extends UIComponent<Integer, BoundIntegerModel, HBox>
 {
     private static final int DEFAULT_LABEL_WIDTH = 70;
     private Slider slider;
@@ -57,14 +57,14 @@ public class BoundSliderComponent extends UIComponent<BoundIntegerModel, HBox>
     {
         super.attachModel(model);
 
-        valueChanged();
+        valueChanged(null, model.get());
         slider.setMax(model.getUpperBounds());
         slider.setMin(model.getLowerBounds());
         numberEntryComponent.attachModel(model);
     }
 
     @Override
-    public void valueChanged()
+    public void valueChanged(Integer prev, Integer curr)
     {
         if (model == null)
         {

@@ -4,7 +4,7 @@ import com.ptumulty.ceramic_api.BooleanModel;
 import javafx.scene.control.CheckBox;
 import org.jetbrains.annotations.Nullable;
 
-public class BooleanComponent extends UIComponent<BooleanModel, CheckBox>
+public class BooleanComponent extends UIComponent<Boolean, BooleanModel, CheckBox>
 {
     public BooleanComponent(BooleanModel model)
     {
@@ -33,7 +33,7 @@ public class BooleanComponent extends UIComponent<BooleanModel, CheckBox>
     }
 
     @Override
-    public void valueChanged()
+    public void valueChanged(Boolean prev, Boolean curr)
     {
         if (model != null)
         {

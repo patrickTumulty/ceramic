@@ -5,7 +5,7 @@ import com.ptumulty.ceramic_ui_api.utility.FxUtils;
 import javafx.scene.control.Label;
 
 
-public class LabelComponent extends UIComponent<ValueModel<?>, Label>
+public class LabelComponent<T> extends UIComponent<T, ValueModel<T>, Label>
 {
     private ValueToStringConverter converter;
     private String prefix;
@@ -16,7 +16,7 @@ public class LabelComponent extends UIComponent<ValueModel<?>, Label>
         this(null);
     }
 
-    public LabelComponent(ValueModel<?> model)
+    public LabelComponent(ValueModel<T> model)
     {
         super(model);
     }
@@ -24,17 +24,27 @@ public class LabelComponent extends UIComponent<ValueModel<?>, Label>
     public void setPrefix(String prefix)
     {
         this.prefix = prefix;
-        valueChanged();
+        if (model != null)
+        {
+            valueChanged(model.get(), model.get());
+        }
     }
 
     public void setSuffix(String suffix)
     {
         this.suffix = suffix;
-        valueChanged();
+        if (model != null)
+        {
+            valueChanged(model.get(), model.get());
+        }
     }
 
     public String getDisplayedText()
     {
+        if (model == null)
+        {
+            return "";
+        }
         return prefix + converter.convert(model.get()) + suffix;
     }
 
@@ -61,14 +71,14 @@ public class LabelComponent extends UIComponent<ValueModel<?>, Label>
     }
 
     @Override
-    public void attachModel(ValueModel<?> model)
+    public void attachModel(ValueModel<T> model)
     {
         super.attachModel(model);
-        valueChanged();
+        valueChanged(null, model.get());
     }
 
     @Override
-    public void valueChanged()
+    public void valueChanged(T prev, T curr)
     {
         FxUtils.run(() -> renderer.setText(getDisplayedText()));
     }

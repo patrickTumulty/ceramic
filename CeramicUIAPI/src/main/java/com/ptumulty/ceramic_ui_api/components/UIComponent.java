@@ -8,13 +8,13 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Node;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class UIComponent<T extends ValueModel<?>, V extends Node> implements Disposable,
-                                                                                      ValueModel.ValueListener
+public abstract class UIComponent<K, T extends ValueModel<K>, V extends Node> implements Disposable,
+                                                                                         ValueModel.ValueListener<K>
 {
     protected String label;
     protected @Nullable T model;
     protected BooleanProperty modifiedProperty;
-    protected ValueModel.ValueListener modifierListener;
+    protected ValueModel.ValueListener<K> modifierListener;
     protected V renderer;
 
     public UIComponent(T model)
@@ -72,14 +72,14 @@ public abstract class UIComponent<T extends ValueModel<?>, V extends Node> imple
         {
             this.model = model;
             this.model.addListener(this);
-            modifierListener = () -> modifiedProperty.set(this.model.isModified());
+            modifierListener = (oldValue, newValue) -> modifiedProperty.set(this.model.isModified());
             this.model.addListener(modifierListener);
             modifiedProperty.set(this.model.isModified());
         }
 
         if (renderer != null)
         {
-            valueChanged();
+            valueChanged(model.get(), model.get());
         }
     }
 

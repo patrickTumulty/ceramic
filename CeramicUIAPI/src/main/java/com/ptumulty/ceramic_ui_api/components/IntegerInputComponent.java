@@ -7,7 +7,7 @@ import javafx.util.converter.IntegerStringConverter;
 
 import java.util.function.UnaryOperator;
 
-public class IntegerInputComponent extends UIComponent<IntegerModel, TextField>
+public class IntegerInputComponent extends UIComponent<Integer, IntegerModel, TextField>
 {
     public IntegerInputComponent()
     {
@@ -60,7 +60,7 @@ public class IntegerInputComponent extends UIComponent<IntegerModel, TextField>
     }
 
     @Override
-    public void valueChanged()
+    public void valueChanged(Integer prev, Integer curr)
     {
         if (model != null)
         {

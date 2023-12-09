@@ -5,7 +5,7 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import org.jetbrains.annotations.Nullable;
 
-public class IntegerSpinnerComponent extends UIComponent<IntegerModel, Spinner<Integer>>
+public class IntegerSpinnerComponent extends UIComponent<Integer, IntegerModel, Spinner<Integer>>
 {
     /**
      * Constructor
@@ -56,7 +56,7 @@ public class IntegerSpinnerComponent extends UIComponent<IntegerModel, Spinner<I
      * {@inheritDoc}
      */
     @Override
-    public void valueChanged()
+    public void valueChanged(Integer prev, Integer curr)
     {
         if (model != null)
         {

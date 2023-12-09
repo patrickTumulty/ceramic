@@ -6,7 +6,7 @@ import java.util.function.Function;
 
 public abstract class ValueModel<T> implements Defaultable<T>
 {
-    private final List<ValueListener> listeners;
+    private final List<ValueListener<T>> listeners;
     private boolean isModified;
     private Function<T, T> valueModifier;
     protected T value;
@@ -84,9 +84,10 @@ public abstract class ValueModel<T> implements Defaultable<T>
             return;
         }
 
+        T oldValue = this.value;
         this.value = value;
         isModified = this.value != defaultValue;
-        notifyValueListeners();
+        notifyValueListeners(oldValue, this.value);
     }
 
     @Override
@@ -95,7 +96,7 @@ public abstract class ValueModel<T> implements Defaultable<T>
         return value.toString();
     }
 
-    public void addListener(ValueListener listener)
+    public void addListener(ValueListener<T> listener)
     {
         synchronized (listeners)
         {
@@ -106,7 +107,7 @@ public abstract class ValueModel<T> implements Defaultable<T>
         }
     }
 
-    public void removeListener(ValueListener listener)
+    public void removeListener(ValueListener<T> listener)
     {
         synchronized (listeners)
         {
@@ -114,13 +115,13 @@ public abstract class ValueModel<T> implements Defaultable<T>
         }
     }
 
-    protected void notifyValueListeners()
+    protected void notifyValueListeners(T previousValue, T newValue)
     {
         synchronized (listeners)
         {
             for (var listener : listeners)
             {
-                listener.valueChanged();
+                listener.valueChanged(previousValue, newValue);
             }
         }
     }
@@ -129,11 +130,11 @@ public abstract class ValueModel<T> implements Defaultable<T>
      * Simple listener for listening to value changes. Only fires when the new value is different from the
      * current value.
      */
-    public interface ValueListener
+    public interface ValueListener<T>
     {
         /**
          * Method for handling when the value has changed
          */
-        void valueChanged();
+        void valueChanged(T previousValue, T newValue);
     }
 }

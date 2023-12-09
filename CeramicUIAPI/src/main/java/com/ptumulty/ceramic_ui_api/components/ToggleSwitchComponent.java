@@ -3,7 +3,7 @@ package com.ptumulty.ceramic_ui_api.components;
 import com.ptumulty.ceramic_api.BooleanModel;
 import org.controlsfx.control.ToggleSwitch;
 
-public class ToggleSwitchComponent extends UIComponent<BooleanModel, ToggleSwitch>
+public class ToggleSwitchComponent extends UIComponent<Boolean, BooleanModel, ToggleSwitch>
 {
     public ToggleSwitchComponent(BooleanModel model)
     {
@@ -11,15 +11,18 @@ public class ToggleSwitchComponent extends UIComponent<BooleanModel, ToggleSwitc
     }
 
     @Override
-    public void valueChanged()
+    public void valueChanged(Boolean prev, Boolean curr)
     {
-        renderer.selectedProperty().set(model.get());
+        renderer.selectedProperty().set(curr);
     }
 
     @Override
     protected void updateModel()
     {
-        model.setValue(renderer.selectedProperty().getValue());
+        if (model != null)
+        {
+            model.setValue(renderer.selectedProperty().getValue());
+        }
     }
 
     @Override

@@ -5,7 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
-public class ButtonComponent extends UIComponent<ValueModel<?>, Button>
+public class ButtonComponent extends UIComponent<Void, ValueModel<Void>, Button>
 {
     public ButtonComponent(String name, EventHandler<ActionEvent> event)
     {
@@ -37,7 +37,7 @@ public class ButtonComponent extends UIComponent<ValueModel<?>, Button>
      * {@inheritDoc}
      */
     @Override
-    public void valueChanged()
+    public void valueChanged(Void prev, Void current)
     {
         // Do Nothing
     }

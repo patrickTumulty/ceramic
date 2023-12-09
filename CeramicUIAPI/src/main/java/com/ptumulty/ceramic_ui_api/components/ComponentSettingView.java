@@ -25,7 +25,7 @@ public class ComponentSettingView
     private final ScrollPane scrollPane;
     private final GridPane gridPane;
 
-    public ComponentSettingView(List<UIComponent<?, ?>> components)
+    public ComponentSettingView(List<UIComponent<?, ?, ?>> components)
     {
         scrollPane = new ScrollPane();
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -41,7 +41,7 @@ public class ComponentSettingView
         addComponents(components);
     }
 
-    private void addComponents(List<UIComponent<?, ?>> components)
+    private void addComponents(List<UIComponent<?, ?, ?>> components)
     {
         int row = 0;
 
@@ -78,7 +78,7 @@ public class ComponentSettingView
         }
     }
 
-    private static void addContextMenu(UIComponent<?, ?> component, Label chevron)
+    private static void addContextMenu(UIComponent<?, ?, ?> component, Label chevron)
     {
         ContextMenu contextMenu = new ContextMenu();
 

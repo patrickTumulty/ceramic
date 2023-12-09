@@ -6,7 +6,7 @@ import javafx.scene.control.ToggleButton;
 import org.jetbrains.annotations.Nullable;
 import org.kordamp.ikonli.javafx.FontIcon;
 
-public class ToggleButtonComponent extends UIComponent<BooleanModel, ToggleButton>
+public class ToggleButtonComponent extends UIComponent<Boolean, BooleanModel, ToggleButton>
 {
     public ToggleButtonComponent(BooleanModel model)
     {
@@ -32,9 +32,9 @@ public class ToggleButtonComponent extends UIComponent<BooleanModel, ToggleButto
     }
 
     @Override
-    public void valueChanged()
+    public void valueChanged(Boolean prev, Boolean curr)
     {
-        renderer.selectedProperty().set(model.get());
+        renderer.selectedProperty().set(curr);
     }
 
     @Override

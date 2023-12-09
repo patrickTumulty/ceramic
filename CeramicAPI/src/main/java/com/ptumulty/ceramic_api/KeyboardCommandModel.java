@@ -2,6 +2,7 @@ package com.ptumulty.ceramic_api;
 
 import com.ptumulty.ceramic_ui_api.KeyboardCommandManager;
 
+import java.security.Key;
 import java.util.concurrent.CompletableFuture;
 
 public class KeyboardCommandModel extends ValueModel<KeyboardCommand>
@@ -17,14 +18,14 @@ public class KeyboardCommandModel extends ValueModel<KeyboardCommand>
 
         this.action = action;
 
-        registerKeyCommand();
+        registerKeyCommand(null, value);
 
         addListener(this::registerKeyCommand);
     }
 
-    private void registerKeyCommand()
+    private void registerKeyCommand(KeyboardCommand previous, KeyboardCommand current)
     {
-        commandManager.unregisterKeyboardCommandAction(value);
+        commandManager.unregisterKeyboardCommandAction(previous);
         if (!value.equals(KeyboardCommand.UNSET))
         {
             commandManager.registerKeyboardCommandAction(value, action);

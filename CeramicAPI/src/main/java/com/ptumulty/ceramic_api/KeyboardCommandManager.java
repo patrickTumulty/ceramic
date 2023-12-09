@@ -111,7 +111,10 @@ public class KeyboardCommandManager
 
     public void unregisterKeyboardCommandAction(KeyboardCommand keyboardCommand)
     {
-        keyboardCommandActionsMap.remove(keyboardCommand);
+        if (keyboardCommand != null)
+        {
+            keyboardCommandActionsMap.remove(keyboardCommand);
+        }
     }
 
     public void start()

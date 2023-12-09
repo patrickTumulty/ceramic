@@ -9,9 +9,9 @@ import java.util.Optional;
 
 public class ComponentFactory
 {
-    public static Optional<UIComponent<?, ?>> create(@Nullable String label, ValueModel<?> valueModel)
+    public static Optional<UIComponent<?, ?, ?>> create(@Nullable String label, ValueModel<?> valueModel)
     {
-        UIComponent<?, ?> component = null;
+        UIComponent<?, ?, ?> component = null;
 
         if (valueModel instanceof BooleanModel booleanModel)
         {

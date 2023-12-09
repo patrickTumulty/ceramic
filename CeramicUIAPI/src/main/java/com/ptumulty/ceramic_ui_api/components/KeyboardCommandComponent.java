@@ -13,7 +13,7 @@ import org.jetbrains.annotations.Nullable;
 import org.kordamp.ikonli.fontawesome5.FontAwesomeSolid;
 import org.kordamp.ikonli.javafx.FontIcon;
 
-public class KeyboardCommandComponent extends UIComponent<KeyboardCommandModel, GridPane>
+public class KeyboardCommandComponent extends UIComponent<KeyboardCommand, KeyboardCommandModel, GridPane>
 {
     private BooleanProperty disabledButtonProperty;
     private TextField textField;
@@ -31,7 +31,7 @@ public class KeyboardCommandComponent extends UIComponent<KeyboardCommandModel, 
     }
 
     @Override
-    public void valueChanged()
+    public void valueChanged(KeyboardCommand previousValue, KeyboardCommand newValue)
     {
         if (model != null)
         {

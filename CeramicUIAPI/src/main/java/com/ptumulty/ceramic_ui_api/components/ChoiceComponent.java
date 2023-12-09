@@ -3,7 +3,7 @@ package com.ptumulty.ceramic_ui_api.components;
 import com.ptumulty.ceramic_api.ChoiceModel;
 import javafx.scene.control.ChoiceBox;
 
-public class ChoiceComponent<T> extends UIComponent<ChoiceModel<T>, ChoiceBox<T>>
+public class ChoiceComponent<T> extends UIComponent<T, ChoiceModel<T>, ChoiceBox<T>>
 {
     public ChoiceComponent()
     {
@@ -46,7 +46,7 @@ public class ChoiceComponent<T> extends UIComponent<ChoiceModel<T>, ChoiceBox<T>
     }
 
     @Override
-    public void valueChanged()
+    public void valueChanged(T prev, T curr)
     {
         if (renderer != null && model != null)
         {
