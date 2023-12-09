@@ -1,8 +1,8 @@
-package com.ptumulty.ceramic_api;
+package com.ptumulty.ceramic_api.keyboard_command;
 
+import com.ptumulty.ceramic_api.ValueModel;
 import com.ptumulty.ceramic_ui_api.KeyboardCommandManager;
 
-import java.security.Key;
 import java.util.concurrent.CompletableFuture;
 
 public class KeyboardCommandModel extends ValueModel<KeyboardCommand>

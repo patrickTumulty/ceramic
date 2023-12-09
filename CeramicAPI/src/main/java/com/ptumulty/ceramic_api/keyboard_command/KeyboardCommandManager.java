@@ -1,6 +1,5 @@
-package com.ptumulty.ceramic_ui_api;
+package com.ptumulty.ceramic_api.keyboard_command;
 
-import com.ptumulty.ceramic_api.KeyboardCommand;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.*;
@@ -10,6 +9,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public class KeyboardCommandManager
 {
     private static KeyboardCommandManager instance;
+
     private final ReentrantLock lock;
     private @Nullable CompletableFuture<KeyboardCommand> keyboardCommandFuture;
     private final ConcurrentHashMap<KeyboardCommand, Runnable> keyboardCommandActionsMap;

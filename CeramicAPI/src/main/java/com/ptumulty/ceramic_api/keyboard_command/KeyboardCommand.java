@@ -1,4 +1,4 @@
-package com.ptumulty.ceramic_api;
+package com.ptumulty.ceramic_api.keyboard_command;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,7 +1,7 @@
 package com.ptumulty.ceramic_ui_api.components;
 
-import com.ptumulty.ceramic_api.KeyboardCommand;
-import com.ptumulty.ceramic_api.KeyboardCommandModel;
+import com.ptumulty.ceramic_api.keyboard_command.KeyboardCommand;
+import com.ptumulty.ceramic_api.keyboard_command.KeyboardCommandModel;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;

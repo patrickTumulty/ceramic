@@ -1,10 +1,10 @@
-package com.ptumulty.ceramic_api;
+package com.ptumulty.ceramic_api.keyboard_command;
 
 import com.github.kwhat.jnativehook.GlobalScreen;
 import com.github.kwhat.jnativehook.NativeHookException;
 import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
 import com.github.kwhat.jnativehook.keyboard.NativeKeyListener;
-import com.ptumulty.ceramic_api.KeyboardCommand.KeyboardModifier;
+import com.ptumulty.ceramic_api.keyboard_command.KeyboardCommand.KeyboardModifier;
 
 import java.util.HashSet;
 import java.util.List;
