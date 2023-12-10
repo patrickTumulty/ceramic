@@ -1,5 +1,6 @@
 package com.ptumulty.ceramic_ui_api.components;
 
+import com.ptumulty.ceramic_api.utils.Disposable;
 import javafx.beans.property.BooleanProperty;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -20,13 +21,15 @@ import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.util.List;
 
-public class ComponentSettingView
+public class ComponentSettingView implements Disposable
 {
+    private final List<UIComponent<?, ?, ?>> components;
     private final ScrollPane scrollPane;
     private final GridPane gridPane;
 
     public ComponentSettingView(List<UIComponent<?, ?, ?>> components)
     {
+        this.components = components;
         scrollPane = new ScrollPane();
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
@@ -114,6 +117,12 @@ public class ComponentSettingView
     public ScrollPane getRenderer()
     {
         return scrollPane;
+    }
+
+    @Override
+    public void dispose()
+    {
+        components.forEach(UIComponent::dispose);
     }
 
     private static class Indicator extends Circle
