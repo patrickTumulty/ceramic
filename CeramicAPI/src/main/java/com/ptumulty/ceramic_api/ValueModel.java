@@ -1,12 +1,16 @@
 package com.ptumulty.ceramic_api;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 
 public abstract class ValueModel<T> implements Defaultable<T>
 {
     private final List<ValueListener<T>> listeners;
+    private @Nullable SaveStringConverter saveStringConverter;
     private boolean isModified;
     private Function<T, T> valueModifier;
     protected T value;
@@ -28,6 +32,17 @@ public abstract class ValueModel<T> implements Defaultable<T>
         isModified = false;
         isSettable = true;
         alwaysNotifyChange = false;
+        saveStringConverter = null;
+    }
+
+    public Optional<SaveStringConverter> getSaveStringConverter()
+    {
+        return Optional.ofNullable(saveStringConverter);
+    }
+
+    public void setSaveStringConverter(SaveStringConverter saveStringConverter)
+    {
+        this.saveStringConverter = saveStringConverter;
     }
 
     /**
@@ -136,5 +151,12 @@ public abstract class ValueModel<T> implements Defaultable<T>
          * Method for handling when the value has changed
          */
         void valueChanged(T previousValue, T newValue);
+    }
+
+    public interface SaveStringConverter
+    {
+        void fromSaveString(String saveString);
+
+        String toSaveString();
     }
 }

@@ -12,6 +12,16 @@ public record KeyboardCommand(String keyCodeName, Optional<KeyboardModifier> mod
     private static final String SAVE_STRING_VALUE_SEPARATOR = ":";
     public static KeyboardCommand UNSET = new KeyboardCommand("UNSET", Optional.empty());
 
+    public KeyboardCommand(String keyCodeName)
+    {
+        this(keyCodeName, Optional.empty());
+    }
+
+    public KeyboardCommand(String keyCodeName, KeyboardModifier modifier)
+    {
+        this(keyCodeName, Optional.of(modifier));
+    }
+
     @Override
     public boolean equals(Object obj)
     {
@@ -42,7 +52,7 @@ public record KeyboardCommand(String keyCodeName, Optional<KeyboardModifier> mod
                        .orElse(keyCodeName());
     }
 
-    public Optional<KeyboardCommand> fromSaveString(String saveKey)
+    public static Optional<KeyboardCommand> fromSaveString(String saveKey)
     {
         if (saveKey.contains(SAVE_STRING_VALUE_SEPARATOR))
         {
