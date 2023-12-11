@@ -5,6 +5,7 @@ import com.github.kwhat.jnativehook.NativeHookException;
 import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
 import com.github.kwhat.jnativehook.keyboard.NativeKeyListener;
 import com.ptumulty.ceramic_api.keyboard_command.KeyboardCommand.KeyboardModifier;
+import com.ptumulty.ceramic_api.utils.JavaUtils;
 
 import java.util.HashSet;
 import java.util.List;
@@ -27,6 +28,12 @@ public class KeyboardListener implements NativeKeyListener
                                                  NativeKeyEvent.VC_CONTROL,
                                                  NativeKeyEvent.VC_ALT,    // Option or Alt Key
                                                  NativeKeyEvent.VC_META)); // Windows or Command Key
+
+        if (JavaUtils.isDebuggerPresent())
+        {
+            System.out.println("Skipping native hook listener while debugger is present");
+            return;
+        }
 
         try
         {
