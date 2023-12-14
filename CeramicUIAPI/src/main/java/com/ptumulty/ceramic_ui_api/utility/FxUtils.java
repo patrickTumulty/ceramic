@@ -51,4 +51,11 @@ public class FxUtils
         child.prefWidthProperty().bind(container.widthProperty());
         child.prefHeightProperty().bind(container.heightProperty());
     }
+
+    public static void setPrefHeight(Region region, double height)
+    {
+        region.setPrefHeight(height);
+        region.setMinHeight(Region.USE_PREF_SIZE);
+        region.setMaxHeight(Region.USE_PREF_SIZE);
+    }
 }
