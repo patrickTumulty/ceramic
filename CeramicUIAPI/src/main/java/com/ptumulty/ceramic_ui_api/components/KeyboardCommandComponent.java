@@ -9,6 +9,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import org.jetbrains.annotations.Nullable;
 import org.kordamp.ikonli.fontawesome5.FontAwesomeSolid;
 import org.kordamp.ikonli.javafx.FontIcon;
@@ -47,7 +48,7 @@ public class KeyboardCommandComponent extends UIComponent<KeyboardCommand, Keybo
 
     public FontIcon getKeyboardIcon()
     {
-       return keyboardIcon;
+        return keyboardIcon;
     }
 
     public FontIcon getTrashIcon()
@@ -72,6 +73,7 @@ public class KeyboardCommandComponent extends UIComponent<KeyboardCommand, Keybo
         Button keyboardButton = new Button();
         keyboardButton.disableProperty().bind(disabledButtonProperty);
         keyboardIcon = new FontIcon(FontAwesomeSolid.KEYBOARD);
+        keyboardIcon.setIconColor(Color.WHITE);
         keyboardButton.setGraphic(keyboardIcon);
         keyboardButton.setOnAction(event -> {
             if (model != null)
@@ -84,11 +86,13 @@ public class KeyboardCommandComponent extends UIComponent<KeyboardCommand, Keybo
         renderer.add(keyboardButton, 1, 0);
 
         clearIcon = new FontIcon(FontAwesomeSolid.TRASH_ALT);
+        clearIcon.setIconColor(Color.WHITE);
         Button clearButton = new Button();
         clearButton.disableProperty().bind(disabledButtonProperty);
         clearButton.setGraphic(clearIcon);
         clearButton.setOnAction(event -> {
-            if (model != null) {
+            if (model != null)
+            {
                 model.setValue(KeyboardCommand.UNSET);
             }
         });
