@@ -26,7 +26,8 @@ public class KeyboardCommandModel extends ValueModel<KeyboardCommand>
             @Override
             public void fromSaveString(String saveString)
             {
-                setValue(KeyboardCommand.fromSaveString(saveString).orElse(KeyboardCommand.UNSET));
+                setValue(KeyboardCommand.fromSaveString(saveString)
+                                        .orElse(KeyboardCommand.UNSET));
             }
 
             @Override

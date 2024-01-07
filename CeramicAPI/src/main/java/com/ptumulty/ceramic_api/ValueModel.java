@@ -40,7 +40,7 @@ public abstract class ValueModel<T> implements Defaultable<T>
         return Optional.ofNullable(saveStringConverter);
     }
 
-    public void setSaveStringConverter(SaveStringConverter saveStringConverter)
+    public void setSaveStringConverter(@Nullable SaveStringConverter saveStringConverter)
     {
         this.saveStringConverter = saveStringConverter;
     }
