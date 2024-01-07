@@ -59,16 +59,13 @@ public class KeyboardListener implements NativeKeyListener
         if (altPressed())
         {
             modifier = KeyboardModifier.ALT;
-        }
-        else if (controlPressed())
+        } else if (controlPressed())
         {
             modifier = KeyboardModifier.CONTROL;
-        }
-        else if (metaPressed())
+        } else if (metaPressed())
         {
             modifier = KeyboardModifier.META;
-        }
-        else if (shiftPressed())
+        } else if (shiftPressed())
         {
             modifier = KeyboardModifier.SHIFT;
         }
@@ -106,5 +103,12 @@ public class KeyboardListener implements NativeKeyListener
     public void dispose()
     {
         GlobalScreen.removeNativeKeyListener(this);
+        try
+        {
+            GlobalScreen.unregisterNativeHook();
+        }
+        catch (NativeHookException ignored)
+        {
+        }
     }
 }

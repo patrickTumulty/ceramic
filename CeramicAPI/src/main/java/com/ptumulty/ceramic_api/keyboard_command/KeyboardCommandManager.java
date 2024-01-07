@@ -1,5 +1,6 @@
 package com.ptumulty.ceramic_api.keyboard_command;
 
+import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.*;
@@ -125,6 +126,7 @@ public class KeyboardCommandManager
     public void stop()
     {
        keyCommandExecutionThreadRunning.set(false);
+       keyboardCommandQueue.add(new KeyboardCommand(NativeKeyEvent.getKeyText(NativeKeyEvent.VC_ESCAPE)));
     }
 }
 
