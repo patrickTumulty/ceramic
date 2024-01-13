@@ -26,6 +26,7 @@ public class ComponentSettingView implements Disposable
     private final List<UIComponent<?, ?, ?>> components;
     private final ScrollPane scrollPane;
     private final GridPane gridPane;
+    private RowConstraints rowConstraints;
 
     public ComponentSettingView(List<UIComponent<?, ?, ?>> components)
     {
@@ -77,6 +78,7 @@ public class ComponentSettingView implements Disposable
             gridPane.add(component.getRenderer(), 2, row);
             GridPane.setMargin(component.getRenderer(), new Insets(0, 0, 0, 10));
 
+            gridPane.getRowConstraints().add(rowConstraints);
             row++;
         }
     }
@@ -95,7 +97,7 @@ public class ComponentSettingView implements Disposable
 
     private void configureColumnAndRowConstraints()
     {
-        RowConstraints rowConstraints = new RowConstraints();
+        rowConstraints = new RowConstraints();
         rowConstraints.setPrefHeight(40);
 
         ColumnConstraints leftColumn = new ColumnConstraints();
@@ -110,7 +112,6 @@ public class ComponentSettingView implements Disposable
         rightColumn.minWidthProperty().bind(gridPane.widthProperty().divide(2).subtract(20));
         rightColumn.setHalignment(HPos.LEFT);
 
-        gridPane.getRowConstraints().add(rowConstraints);
         gridPane.getColumnConstraints().addAll(leftColumn, middleColumn, rightColumn);
     }
 

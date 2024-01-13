@@ -55,12 +55,16 @@ public class BoundSliderComponent extends UIComponent<Integer, BoundIntegerModel
     @Override
     public void attachModel(BoundIntegerModel model)
     {
-        super.attachModel(model);
+        if (model == null)
+        {
+            return;
+        }
 
-        valueChanged(null, model.get());
         slider.setMax(model.getUpperBounds());
         slider.setMin(model.getLowerBounds());
         numberEntryComponent.attachModel(model);
+
+        super.attachModel(model);
     }
 
     @Override
