@@ -1,20 +1,21 @@
 package com.ptumulty.ceramic_ui_api.components;
 
-import com.ptumulty.ceramic_api.IntegerModel;
+import com.ptumulty.ceramic_api.impl.IntegerModelImpl;
+import com.ptumulty.ceramic_api.ValueModel;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.util.converter.IntegerStringConverter;
 
 import java.util.function.UnaryOperator;
 
-public class IntegerInputComponent extends UIComponent<Integer, IntegerModel, TextField>
+public class IntegerInputComponent extends UIComponent<Integer, ValueModel<Integer>, TextField>
 {
     public IntegerInputComponent()
     {
         this(null);
     }
 
-    public IntegerInputComponent(IntegerModel model)
+    public IntegerInputComponent(IntegerModelImpl model)
     {
         super(model);
     }

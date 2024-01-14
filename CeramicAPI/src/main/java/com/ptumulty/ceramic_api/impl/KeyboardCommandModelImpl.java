@@ -1,15 +1,18 @@
-package com.ptumulty.ceramic_api.keyboard_command;
+package com.ptumulty.ceramic_api.impl;
 
-import com.ptumulty.ceramic_api.ValueModel;
+import com.ptumulty.ceramic_api.DefaultValueModel;
+import com.ptumulty.ceramic_api.ValueModel.KeyboardCommandModel;
+import com.ptumulty.ceramic_api.keyboard_command.KeyboardCommand;
+import com.ptumulty.ceramic_api.keyboard_command.KeyboardCommandManager;
 
 import java.util.concurrent.CompletableFuture;
 
-public class KeyboardCommandModel extends ValueModel<KeyboardCommand>
+public class KeyboardCommandModelImpl extends DefaultValueModel<KeyboardCommand> implements KeyboardCommandModel
 {
     private final KeyboardCommandManager commandManager;
     private final Runnable action;
 
-    public KeyboardCommandModel(KeyboardCommand value, Runnable action)
+    KeyboardCommandModelImpl(KeyboardCommand value, Runnable action)
     {
         super(value);
 
@@ -47,6 +50,7 @@ public class KeyboardCommandModel extends ValueModel<KeyboardCommand>
         }
     }
 
+    @Override
     public CompletableFuture<Void> updateValueWithNextKeyCommand()
     {
         return commandManager.getNextKeyboardCommand().thenAccept(this::setValue);

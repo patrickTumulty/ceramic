@@ -1,29 +1,19 @@
 package com.ptumulty.ceramic_ui_api.components;
 
-import com.ptumulty.ceramic_api.IntegerModel;
+import com.ptumulty.ceramic_api.ValueModel;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import org.jetbrains.annotations.Nullable;
 
-public class IntegerSpinnerComponent extends UIComponent<Integer, IntegerModel, Spinner<Integer>>
+public class IntegerSpinnerComponent extends UIComponent<Integer, ValueModel<Integer>, Spinner<Integer>>
 {
-    /**
-     * Constructor
-     *
-     * @param model integer spinner model
-     */
-    public IntegerSpinnerComponent(IntegerModel model)
-    {
-        super(model);
-    }
-
     /**
      * Constructor
      *
      * @param label component label
      * @param model integer spinner model
      */
-    public IntegerSpinnerComponent(@Nullable String label, IntegerModel model)
+    public IntegerSpinnerComponent(@Nullable String label, ValueModel<Integer> model)
     {
         super(label, model);
     }

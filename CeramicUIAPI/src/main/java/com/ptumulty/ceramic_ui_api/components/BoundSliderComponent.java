@@ -1,6 +1,6 @@
 package com.ptumulty.ceramic_ui_api.components;
 
-import com.ptumulty.ceramic_api.BoundIntegerModel;
+import com.ptumulty.ceramic_api.ValueModel.BoundIntegerModel;
 import javafx.geometry.Pos;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.HBox;

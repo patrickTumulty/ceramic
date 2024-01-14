@@ -1,6 +1,6 @@
 package com.ptumulty.ceramic_ui_api.components;
 
-import com.ptumulty.ceramic_api.BooleanModel;
+import com.ptumulty.ceramic_api.ValueModel.BooleanModel;
 import javafx.application.Platform;
 import javafx.scene.control.ToggleButton;
 import org.jetbrains.annotations.Nullable;

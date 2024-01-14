@@ -1,10 +1,10 @@
 package com.ptumulty.ceramic_ui_api;
 
 
-import com.ptumulty.ceramic_api.ValueModel;
+import com.ptumulty.ceramic_api.DefaultValueModel;
 import javafx.scene.paint.Color;
 
-public class ColorModel extends ValueModel<Color>
+public class ColorModel extends DefaultValueModel<Color>
 {
     public ColorModel()
     {

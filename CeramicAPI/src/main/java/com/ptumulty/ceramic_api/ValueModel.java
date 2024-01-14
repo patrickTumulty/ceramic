@@ -1,49 +1,18 @@
 package com.ptumulty.ceramic_api;
 
+import com.ptumulty.ceramic_api.keyboard_command.KeyboardCommand;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
-public abstract class ValueModel<T> implements Defaultable<T>
+public interface ValueModel<T> extends Defaultable<T>
 {
-    private final List<ValueListener<T>> listeners;
-    private @Nullable SaveStringConverter saveStringConverter;
-    private boolean isModified;
-    private Function<T, T> valueModifier;
-    protected T value;
-    protected T defaultValue;
-    protected boolean isSettable;
-    protected boolean alwaysNotifyChange;
+    Optional<SaveStringConverter> getSaveStringConverter();
 
-    public ValueModel(T value)
-    {
-        this(value, value);
-    }
-
-    public ValueModel(T value, T defaultValue)
-    {
-        this.value = value;
-        this.defaultValue = defaultValue;
-        listeners = new ArrayList<>();
-        valueModifier = x -> x;
-        isModified = false;
-        isSettable = true;
-        alwaysNotifyChange = false;
-        saveStringConverter = null;
-    }
-
-    public Optional<SaveStringConverter> getSaveStringConverter()
-    {
-        return Optional.ofNullable(saveStringConverter);
-    }
-
-    public void setSaveStringConverter(@Nullable SaveStringConverter saveStringConverter)
-    {
-        this.saveStringConverter = saveStringConverter;
-    }
+    void setSaveStringConverter(@Nullable SaveStringConverter saveStringConverter);
 
     /**
      * Set this model to always notify a change in the value. This means
@@ -51,101 +20,23 @@ public abstract class ValueModel<T> implements Defaultable<T>
      *
      * @param alwaysNotifyChange always notify change
      */
-    public void setAlwaysNotifyChange(boolean alwaysNotifyChange)
-    {
-        this.alwaysNotifyChange = alwaysNotifyChange;
-    }
+    void setAlwaysNotifyChange(boolean alwaysNotifyChange);
 
-    public void setValueModifier(Function<T, T> modifier)
-    {
-        this.valueModifier = modifier;
-    }
+    void setValueModifier(Function<T, T> modifier);
 
-    @Override
-    public boolean isModified()
-    {
-        return isModified;
-    }
+    void setValue(T value);
 
-    @Override
-    public void restoreDefault()
-    {
-        setValue(defaultValue);
-    }
+    T get();
 
-    @Override
-    public void setDefault(T defaultValue)
-    {
-        this.defaultValue = defaultValue;
-    }
+    void addListener(ValueListener<T> listener);
 
-    @Override
-    public T getDefault()
-    {
-        return defaultValue;
-    }
-
-    public T get()
-    {
-        return value;
-    }
-
-    public final void setValue(T value)
-    {
-        value = valueModifier.apply(value);
-
-        if (!alwaysNotifyChange && (value == this.value))
-        {
-            return;
-        }
-
-        T oldValue = this.value;
-        this.value = value;
-        isModified = this.value != defaultValue;
-        notifyValueListeners(oldValue, this.value);
-    }
-
-    @Override
-    public String toString()
-    {
-        return value.toString();
-    }
-
-    public void addListener(ValueListener<T> listener)
-    {
-        synchronized (listeners)
-        {
-            if (!listeners.contains(listener))
-            {
-                listeners.add(listener);
-            }
-        }
-    }
-
-    public void removeListener(ValueListener<T> listener)
-    {
-        synchronized (listeners)
-        {
-            listeners.remove(listener);
-        }
-    }
-
-    protected void notifyValueListeners(T previousValue, T newValue)
-    {
-        synchronized (listeners)
-        {
-            for (var listener : listeners)
-            {
-                listener.valueChanged(previousValue, newValue);
-            }
-        }
-    }
+    void removeListener(ValueListener<T> listener);
 
     /**
      * Simple listener for listening to value changes. Only fires when the new value is different from the
      * current value.
      */
-    public interface ValueListener<T>
+    interface ValueListener<T>
     {
         /**
          * Method for handling when the value has changed
@@ -153,10 +44,65 @@ public abstract class ValueModel<T> implements Defaultable<T>
         void valueChanged(T previousValue, T newValue);
     }
 
-    public interface SaveStringConverter
+    interface SaveStringConverter
     {
         void fromSaveString(String saveString);
 
         String toSaveString();
+    }
+
+    interface IntegerModel extends ValueModel<Integer>
+    {
+    }
+
+    interface FloatModel extends ValueModel<Float>
+    {
+    }
+
+    interface DoubleModel extends ValueModel<Double>
+    {
+    }
+
+    interface BooleanModel extends ValueModel<Boolean>
+    {
+    }
+
+    interface ListModel<T> extends ValueModel<List<T>>
+    {
+    }
+
+    interface StringModel extends ValueModel<String>
+    {
+    }
+
+    interface ChoiceModel<T> extends ValueModel<T>
+    {
+        void setValueIndex(int index);
+
+        List<T> getChoiceItems();
+
+        void addChoice(T item);
+
+        void removeChoice(T item);
+    }
+
+    interface BoundNumberModel<T extends Number> extends ValueModel<T>
+    {
+        T getUpperBounds();
+
+        T getLowerBounds();
+    }
+
+    interface BoundIntegerModel extends BoundNumberModel<Integer>, IntegerModel
+    {
+    }
+
+    interface BoundDoubleModel extends BoundNumberModel<Double>, DoubleModel
+    {
+    }
+
+    interface KeyboardCommandModel extends ValueModel<KeyboardCommand>
+    {
+        CompletableFuture<Void> updateValueWithNextKeyCommand();
     }
 }

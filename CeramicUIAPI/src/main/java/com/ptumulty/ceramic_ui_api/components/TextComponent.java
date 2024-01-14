@@ -1,6 +1,6 @@
 package com.ptumulty.ceramic_ui_api.components;
 
-import com.ptumulty.ceramic_api.StringModel;
+import com.ptumulty.ceramic_api.ValueModel.StringModel;
 import javafx.scene.control.TextArea;
 
 public class TextComponent extends UIComponent<String, StringModel, TextArea>

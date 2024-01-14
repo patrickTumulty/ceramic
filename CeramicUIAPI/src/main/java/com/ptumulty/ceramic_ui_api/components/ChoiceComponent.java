@@ -1,6 +1,6 @@
 package com.ptumulty.ceramic_ui_api.components;
 
-import com.ptumulty.ceramic_api.ChoiceModel;
+import com.ptumulty.ceramic_api.ValueModel.ChoiceModel;
 import javafx.scene.control.ChoiceBox;
 
 public class ChoiceComponent<T> extends UIComponent<T, ChoiceModel<T>, ChoiceBox<T>>

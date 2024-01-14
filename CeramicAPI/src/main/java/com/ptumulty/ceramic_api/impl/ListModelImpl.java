@@ -1,19 +1,22 @@
-package com.ptumulty.ceramic_api;
+package com.ptumulty.ceramic_api.impl;
+
+import com.ptumulty.ceramic_api.DefaultValueModel;
+import com.ptumulty.ceramic_api.ValueModel.ListModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListModel<T> extends ValueModel<List<T>>
+public class ListModelImpl<T> extends DefaultValueModel<List<T>> implements ListModel<T>
 {
     private List<ListModelListener<T>> listeners;
 
-    public ListModel()
+    ListModelImpl()
     {
         this(new ArrayList<>());
         listeners = new ArrayList<>();
     }
 
-    ListModel(List<T> value)
+    ListModelImpl(List<T> value)
     {
         super(value);
     }
