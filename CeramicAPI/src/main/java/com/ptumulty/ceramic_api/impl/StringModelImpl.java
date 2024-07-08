@@ -7,7 +7,7 @@ public class StringModelImpl extends DefaultValueModel<String> implements String
 {
     StringModelImpl()
     {
-        super("");
+        this("");
     }
 
     StringModelImpl(String value)

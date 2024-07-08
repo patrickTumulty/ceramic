@@ -2,12 +2,18 @@ package com.ptumulty.ceramic_ui_api.components;
 
 import com.ptumulty.ceramic_api.ValueModel.StringModel;
 import javafx.scene.control.TextField;
+import org.jetbrains.annotations.Nullable;
 
 public class StringComponent extends UIComponent<String, StringModel, TextField>
 {
     public StringComponent()
     {
         this(null);
+    }
+
+    public StringComponent(String label, @Nullable StringModel model)
+    {
+        super(label, model);
     }
 
     public StringComponent(StringModel model)

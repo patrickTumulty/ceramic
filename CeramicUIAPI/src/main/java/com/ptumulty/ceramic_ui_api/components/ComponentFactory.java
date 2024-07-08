@@ -4,6 +4,8 @@ import com.ptumulty.ceramic_api.ValueModel;
 import com.ptumulty.ceramic_api.ValueModel.BooleanModel;
 import com.ptumulty.ceramic_api.ValueModel.BoundIntegerModel;
 import com.ptumulty.ceramic_api.ValueModel.KeyboardCommandModel;
+import com.ptumulty.ceramic_api.ValueModel.StringModel;
+import com.ptumulty.ceramic_api.impl.ColorStringModel;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -25,6 +27,14 @@ public class ComponentFactory
         else if (valueModel instanceof KeyboardCommandModel keyboardCommandModel)
         {
             component = new KeyboardCommandComponent(label, keyboardCommandModel);
+        }
+        else if (valueModel instanceof ColorStringModel colorStringModel)
+        {
+            component = new ColorPickerComponent(label, colorStringModel);
+        }
+        else if (valueModel instanceof StringModel stringModel)
+        {
+            component = new StringComponent(label, stringModel);
         }
 
         return Optional.ofNullable(component);

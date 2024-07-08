@@ -8,6 +8,11 @@ import java.util.List;
 
 public class ModelFactory
 {
+    public static StringModel create(String value)
+    {
+        return new StringModelImpl(value);
+    }
+
     public static IntegerModel create(int value)
     {
         return new IntegerModelImpl(value);
