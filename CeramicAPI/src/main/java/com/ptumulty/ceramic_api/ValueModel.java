@@ -69,6 +69,26 @@ public interface ValueModel<T> extends Defaultable<T>
 
     interface ListModel<T> extends ValueModel<List<T>>
     {
+        void addItem(T item);
+
+        void addItems(List<T> items);
+
+        void removeItem(T item);
+
+        void clearList();
+
+        void addListener(ListModelListener<T> listener);
+
+        void removeListener(ListModelListener<T> listener);
+
+        interface ListModelListener<T>
+        {
+            void itemAdded(T item);
+
+            void itemRemoved(T item);
+
+            void listChanged();
+        }
     }
 
     interface StringModel extends ValueModel<String>

@@ -53,4 +53,8 @@ public class ModelFactory
         return new KeyboardCommandModelImpl(command, action);
     }
 
+    public static <T> ListModel<T> create(List<T> list)
+    {
+        return new ListModelImpl<>(list);
+    }
 }
