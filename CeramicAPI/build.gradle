@@ -2,7 +2,6 @@ plugins {
     id 'java-library'
 }
 
-group 'com.apex'
 version '1.0.0'
 
 repositories {
