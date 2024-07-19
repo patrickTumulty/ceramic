@@ -4,6 +4,7 @@ import com.ptumulty.ceramic_api.DefaultValueModel;
 import com.ptumulty.ceramic_api.ValueModel.ListModel;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class ListModelImpl<T> extends DefaultValueModel<List<T>> implements ListModel<T>
@@ -30,7 +31,7 @@ public class ListModelImpl<T> extends DefaultValueModel<List<T>> implements List
     }
 
     @Override
-    public void addItems(List<T> items)
+    public void addItems(Collection<T> items)
     {
         value.addAll(items);
         listeners.forEach(ListModelListener::listChanged);
@@ -50,15 +51,10 @@ public class ListModelImpl<T> extends DefaultValueModel<List<T>> implements List
         listeners.forEach(ListModelListener::listChanged);
     }
 
-    public List<T> getItemsSnapshot()
-    {
-        return new ArrayList<>(List.copyOf(value));
-    }
-
     @Override
     public List<T> get()
     {
-        return getItemsSnapshot();
+        return value;
     }
 
     @Override

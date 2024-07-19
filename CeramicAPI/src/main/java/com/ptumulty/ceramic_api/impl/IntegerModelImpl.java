@@ -9,4 +9,16 @@ public class IntegerModelImpl extends DefaultValueModel<Integer> implements Inte
     {
         super(value);
     }
+
+    @Override
+    public void increment()
+    {
+        setValue(get() + 1);
+    }
+
+    @Override
+    public void decrement()
+    {
+        setValue(get() - 1);
+    }
 }
