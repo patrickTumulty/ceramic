@@ -2,6 +2,14 @@
 
 .indicator-active {
     -fx-fill: indicator-active-fill;
+    -fx-effect: dropshadow(
+            gaussian,        /* blur type */
+            indicator-active-fill,         /* color of glow */
+            10,              /* radius */
+            0.3,             /* spread (intensity) */
+            0,               /* offsetX */
+            0                /* offsetY */
+    );
 }
 
 .indicator-inactive {

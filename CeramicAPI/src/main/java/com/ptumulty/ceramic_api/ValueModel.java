@@ -3,6 +3,7 @@ package com.ptumulty.ceramic_api;
 import com.ptumulty.ceramic_api.keyboard_command.KeyboardCommand;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -53,6 +54,9 @@ public interface ValueModel<T> extends Defaultable<T>
 
     interface IntegerModel extends ValueModel<Integer>
     {
+        void increment();
+
+        void decrement();
     }
 
     interface FloatModel extends ValueModel<Float>
@@ -69,6 +73,28 @@ public interface ValueModel<T> extends Defaultable<T>
 
     interface ListModel<T> extends ValueModel<List<T>>
     {
+        void addItem(T item);
+
+        void addItems(Collection<T> items);
+
+        void removeItem(T item);
+
+        void clearList();
+
+        int size();
+
+        void addListener(ListModelListener<T> listener);
+
+        void removeListener(ListModelListener<T> listener);
+
+        interface ListModelListener<T>
+        {
+            void itemAdded(T item);
+
+            void itemRemoved(T item);
+
+            void listChanged();
+        }
     }
 
     interface StringModel extends ValueModel<String>

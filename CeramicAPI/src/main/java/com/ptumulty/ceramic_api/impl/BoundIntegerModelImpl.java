@@ -29,4 +29,16 @@ public class BoundIntegerModelImpl extends BoundNumberModelImpl<Integer> impleme
     {
         return Integer.MIN_VALUE;
     }
+
+    @Override
+    public void increment()
+    {
+        setValue(get() + 1);
+    }
+
+    @Override
+    public void decrement()
+    {
+        setValue(get() - 1);
+    }
 }
