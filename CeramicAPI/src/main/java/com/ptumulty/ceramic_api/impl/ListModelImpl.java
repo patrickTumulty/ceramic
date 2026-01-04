@@ -52,6 +52,12 @@ public class ListModelImpl<T> extends DefaultValueModel<List<T>> implements List
     }
 
     @Override
+    public int size()
+    {
+        return value.size();
+    }
+
+    @Override
     public List<T> get()
     {
         return value;

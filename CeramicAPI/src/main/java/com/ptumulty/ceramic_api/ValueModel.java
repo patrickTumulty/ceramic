@@ -81,6 +81,8 @@ public interface ValueModel<T> extends Defaultable<T>
 
         void clearList();
 
+        int size();
+
         void addListener(ListModelListener<T> listener);
 
         void removeListener(ListModelListener<T> listener);
