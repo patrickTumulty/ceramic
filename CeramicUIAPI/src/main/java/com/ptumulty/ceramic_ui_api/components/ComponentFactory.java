@@ -36,6 +36,10 @@ public class ComponentFactory
         {
             component = new StringComponent(label, stringModel);
         }
+        else if (valueModel instanceof ValueModel.ChoiceModel<?> choiceModel)
+        {
+            component = new ChoiceComponent<>(label, choiceModel);
+        }
 
         return Optional.ofNullable(component);
     }

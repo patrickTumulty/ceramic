@@ -1,29 +1,50 @@
 package com.ptumulty.ceramic_ui_api.components;
 
 import com.ptumulty.ceramic_api.ValueModel.ChoiceModel;
+import com.ptumulty.ceramic_api.ValueModel.ChoiceModel.ChoiceListener;
+import com.ptumulty.ceramic_ui_api.utility.FxUtils;
 import javafx.scene.control.ChoiceBox;
 
-public class ChoiceComponent<T> extends UIComponent<T, ChoiceModel<T>, ChoiceBox<T>>
+public class ChoiceComponent<T> extends UIComponent<T, ChoiceModel<T>, ChoiceBox<T>> implements ChoiceListener<T>
 {
-    public ChoiceComponent()
+    public ChoiceComponent(String label)
     {
-        this(null);
+        this(label, null);
     }
 
-    public ChoiceComponent(ChoiceModel<T> model)
+    public ChoiceComponent(String label, ChoiceModel<T> model)
     {
-        super(model);
+        super(label, model);
     }
 
     @Override
     public void attachModel(ChoiceModel<T> model)
     {
         super.attachModel(model);
+        detachModel();
+        if (model != null)
+        {
+            model.addChoiceListener(this);
+            if (model.getStringConverter().isPresent())
+            {
+                renderer.setConverter(model.getStringConverter().get());
+            }
+            renderer.getItems().addAll(model.getChoiceItems());
+            renderer.setValue(model.get());
+        }
+    }
+
+    @Override
+    public void detachModel()
+    {
+        super.detachModel();
 
         renderer.getItems().clear();
-        renderer.getItems().addAll(model.getChoiceItems());
-        renderer.setValue(model.get());
-        renderer.setOnAction(event -> updateModel());
+        renderer.setConverter(null);
+        if (model != null)
+        {
+            model.removeChoiceListener(this);
+        }
     }
 
     /**
@@ -43,6 +64,7 @@ public class ChoiceComponent<T> extends UIComponent<T, ChoiceModel<T>, ChoiceBox
     protected void initializeRenderer()
     {
         renderer = new ChoiceBox<>();
+        renderer.setOnAction(event -> updateModel());
     }
 
     @Override
@@ -52,5 +74,17 @@ public class ChoiceComponent<T> extends UIComponent<T, ChoiceModel<T>, ChoiceBox
         {
             renderer.setValue(model.get());
         }
+    }
+
+    @Override
+    public void choiceAdded(T item)
+    {
+        FxUtils.run(() -> renderer.getItems().add(item));
+    }
+
+    @Override
+    public void choiceRemoved(T item)
+    {
+        FxUtils.run(() -> renderer.getItems().remove(item));
     }
 }

@@ -1,6 +1,7 @@
 package com.ptumulty.ceramic_api;
 
 import com.ptumulty.ceramic_api.keyboard_command.KeyboardCommand;
+import javafx.util.StringConverter;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
@@ -105,11 +106,26 @@ public interface ValueModel<T> extends Defaultable<T>
     {
         void setValueIndex(int index);
 
+        void setStringConverter(StringConverter<T> stringConverter);
+
+        Optional<StringConverter<T>> getStringConverter();
+
         List<T> getChoiceItems();
 
         void addChoice(T item);
 
         void removeChoice(T item);
+
+        void addChoiceListener(ChoiceListener<T> listener);
+
+        void removeChoiceListener(ChoiceListener<T> listener);
+
+        interface ChoiceListener<T>
+        {
+            void choiceAdded(T item);
+
+            void choiceRemoved(T item);
+        }
     }
 
     interface BoundNumberModel<T extends Number> extends ValueModel<T>
