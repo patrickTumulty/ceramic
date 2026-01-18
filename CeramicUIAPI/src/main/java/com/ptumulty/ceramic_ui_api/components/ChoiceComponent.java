@@ -21,7 +21,7 @@ public class ChoiceComponent<T> extends UIComponent<T, ChoiceModel<T>, ChoiceBox
     public void attachModel(ChoiceModel<T> model)
     {
         super.attachModel(model);
-        detachModel();
+
         if (model != null)
         {
             model.addChoiceListener(this);
@@ -72,7 +72,7 @@ public class ChoiceComponent<T> extends UIComponent<T, ChoiceModel<T>, ChoiceBox
     {
         if (renderer != null && model != null)
         {
-            renderer.setValue(model.get());
+            FxUtils.run(() -> renderer.setValue(curr));
         }
     }
 
