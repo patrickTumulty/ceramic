@@ -18,6 +18,8 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.26'
 
     api 'com.github.kwhat:jnativehook:2.2.2'
+
+    api("com.google.guava:guava:33.5.0-jre")
 }
 
 test {
