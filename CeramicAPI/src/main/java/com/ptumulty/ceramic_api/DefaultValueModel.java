@@ -108,7 +108,7 @@ public class DefaultValueModel<T> implements ValueModel<T>
 
         T oldValue = this.value;
         this.value = value;
-        isModified = !this.value.equals(defaultValue);
+        isModified = !Objects.equals(this.value, defaultValue);
         notifyValueListeners(oldValue, this.value);
     }
 
