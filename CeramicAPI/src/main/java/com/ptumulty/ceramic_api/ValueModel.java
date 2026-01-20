@@ -72,6 +72,10 @@ public interface ValueModel<T> extends Defaultable<T>
     {
     }
 
+    interface RunnableModel extends ValueModel<Runnable>
+    {
+    }
+
     interface ListModel<T> extends ValueModel<List<T>>
     {
         void addItem(T item);
