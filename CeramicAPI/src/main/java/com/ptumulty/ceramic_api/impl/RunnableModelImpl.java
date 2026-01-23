@@ -8,5 +8,19 @@ public class RunnableModelImpl extends DefaultValueModel<Runnable> implements Ru
     public RunnableModelImpl(Runnable value)
     {
         super(value);
+        setSaveStringConverter(new SaveStringConverter()
+        {
+            @Override
+            public void fromSaveString(String saveString)
+            {
+
+            }
+
+            @Override
+            public String toSaveString()
+            {
+                return "NA";
+            }
+        });
     }
 }

@@ -10,7 +10,7 @@ public class StringModelImpl extends DefaultValueModel<String> implements String
         this("");
     }
 
-    StringModelImpl(String value)
+    public StringModelImpl(String value)
     {
         super(value);
     }
