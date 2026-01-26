@@ -73,10 +73,6 @@ public class ChoiceModelImpl<T> extends DefaultValueModel<T> implements ChoiceMo
     {
         choices.remove(item);
         listeners.forEach(l -> l.choiceRemoved(item));
-        if (get() == item)
-        {
-            setValue(choices.stream().findFirst().orElse(null));
-        }
     }
 
     @Override
