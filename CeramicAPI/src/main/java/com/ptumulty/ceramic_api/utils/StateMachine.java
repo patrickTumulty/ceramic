@@ -11,7 +11,7 @@ public class StateMachine<T, V>
 {
     private final AtomicReference<T> currentState;
     private final Map<T, Map<V, T>> stateTransitionMap;
-    private final List<Listener<T>> listeners;
+    private final List<Listener<T, V>> listeners;
 
     public StateMachine(T initialState)
     {
@@ -33,7 +33,7 @@ public class StateMachine<T, V>
     public Optional<T> handle(V event)
     {
         T prevState, newState;
-        List<Listener<T>> listenersCopy;
+        List<Listener<T, V>> listenersCopy;
 
         synchronized (this)
         {
@@ -55,11 +55,11 @@ public class StateMachine<T, V>
             }
         }
 
-        listenersCopy.forEach(listener -> listener.stateChanged(prevState, newState));
+        listenersCopy.forEach(listener -> listener.stateChanged(event, prevState, newState));
         return Optional.of(newState);
     }
 
-    public void addListener(Listener<T> listener)
+    public void addListener(Listener<T, V> listener)
     {
         synchronized (listeners)
         {
@@ -70,7 +70,7 @@ public class StateMachine<T, V>
         }
     }
 
-    public void removeListener(Listener<T> listener)
+    public void removeListener(Listener<T, V> listener)
     {
         synchronized (listeners)
         {
@@ -78,8 +78,8 @@ public class StateMachine<T, V>
         }
     }
 
-    public interface Listener<T>
+    public interface Listener<T, V>
     {
-        void stateChanged(T previous, T current);
+        void stateChanged(V event, T previous, T current);
     }
 }
