@@ -1,13 +1,5 @@
 plugins {
-    id 'java-library'
     id 'org.openjfx.javafxplugin' version '0.1.0'
-}
-
-group 'com.ptumulty'
-version '0.0.1-SNAPSHOT'
-
-repositories {
-    mavenCentral()
 }
 
 dependencies {
@@ -22,7 +14,7 @@ dependencies {
     api 'org.kordamp.ikonli:ikonli-fontawesome5-pack:12.3.1'
     api 'org.kordamp.ikonli:ikonli-fontawesome-pack:12.3.1'
 
-    api project(":CeramicAPI")
+    api "com.ptumulty:CeramicAPI"
 }
 
 javafx {

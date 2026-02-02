@@ -1,6 +1,4 @@
 rootProject.name = 'ceramic'
 
 include 'CeramicAPI'
-project(':CeramicAPI').projectDir = new File(settingsDir, '.\\CeramicAPI')
 include 'CeramicUIAPI'
-project(':CeramicUIAPI').projectDir = new File(settingsDir, '.\\CeramicUIAPI')
