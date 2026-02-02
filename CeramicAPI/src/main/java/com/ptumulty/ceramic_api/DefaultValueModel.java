@@ -4,6 +4,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -100,14 +101,14 @@ public class DefaultValueModel<T> implements ValueModel<T>
     {
         value = valueModifier.apply(value);
 
-        if (!alwaysNotifyChange && (value.equals(this.value)))
+        if (!alwaysNotifyChange && (Objects.equals(value, this.value)))
         {
             return;
         }
 
         T oldValue = this.value;
         this.value = value;
-        isModified = !this.value.equals(defaultValue);
+        isModified = !Objects.equals(this.value, defaultValue);
         notifyValueListeners(oldValue, this.value);
     }
 

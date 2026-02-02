@@ -57,4 +57,9 @@ public class ModelFactory
     {
         return new ListModelImpl<>(list);
     }
+
+    public static RunnableModel create(Runnable runnable)
+    {
+        return new RunnableModelImpl(runnable);
+    }
 }

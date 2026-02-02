@@ -68,6 +68,11 @@ public abstract class UIComponent<K, T extends ValueModel<K>, V extends Node> im
             return;
         }
 
+        if (this.model != null)
+        {
+            detachModel();
+        }
+
         if (this.model != model)
         {
             this.model = model;

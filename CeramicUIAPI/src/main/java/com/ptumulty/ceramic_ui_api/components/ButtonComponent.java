@@ -1,18 +1,16 @@
 package com.ptumulty.ceramic_ui_api.components;
 
-import com.ptumulty.ceramic_api.ValueModel;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import com.ptumulty.ceramic_api.ValueModel.RunnableModel;
 import javafx.scene.control.Button;
 
-public class ButtonComponent extends UIComponent<Void, ValueModel<Void>, Button>
+public class ButtonComponent extends UIComponent<Runnable, RunnableModel, Button>
 {
-    public ButtonComponent(String name, EventHandler<ActionEvent> event)
+    public ButtonComponent(String name, RunnableModel runnable)
     {
-        super(null);
+        super(name, runnable);
 
         renderer.setText(name);
-        renderer.setOnAction(event);
+        renderer.setOnAction(event -> runnable.get().run());
     }
 
     /**
@@ -33,12 +31,9 @@ public class ButtonComponent extends UIComponent<Void, ValueModel<Void>, Button>
         renderer = new Button();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public void valueChanged(Void prev, Void current)
+    public void valueChanged(Runnable previousValue, Runnable newValue)
     {
-        // Do Nothing
+        renderer.setOnAction(event -> newValue.run());
     }
 }
