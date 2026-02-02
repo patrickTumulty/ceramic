@@ -39,12 +39,13 @@ public class ChoiceComponent<T> extends UIComponent<T, ChoiceModel<T>, ChoiceBox
     {
         super.detachModel();
 
-        renderer.getItems().clear();
-        renderer.setConverter(null);
         if (model != null)
         {
             model.removeChoiceListener(this);
+            model = null;
         }
+        renderer.getItems().clear();
+        renderer.setConverter(null);
     }
 
     /**
@@ -72,7 +73,9 @@ public class ChoiceComponent<T> extends UIComponent<T, ChoiceModel<T>, ChoiceBox
     {
         if (renderer != null && model != null)
         {
-            FxUtils.run(() -> renderer.setValue(curr));
+            FxUtils.run(() -> {
+                renderer.setValue(curr);
+            });
         }
     }
 
