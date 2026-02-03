@@ -105,7 +105,7 @@ public abstract class UIComponent<K, T extends ValueModel<K>, V extends Node> im
     {
         if (model != null)
         {
-            model.addListener(modifierListener);
+            model.removeListener(modifierListener);
             model.removeListener(this);
         }
     }
